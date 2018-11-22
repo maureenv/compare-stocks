@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[6],{202:function(n,e,t){__NEXT_REGISTER_PAGE("/",function(){return n.exports=t(203),{page:n.exports.default}})},203:function(n,e,t){"use strict";t.r(e);var u=t(8),a=t.n(u);e.default=function(){return a.a.createElement("div",null,a.a.createElement("p",null,"Cats!"))}}},[[202,1,0]]]);

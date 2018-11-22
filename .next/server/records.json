@@ -2,17 +2,19 @@
   "modules": {
     "byIdentifier": {
       "external \"react\"": 0,
-      "multi ./pages/index.js": 1,
-      "node_modules/next/dist/build/webpack/loaders/next-babel-loader.js??ref--4!pages/index.js": 2,
-      "multi node_modules/next/dist/pages/_app.js": 3,
-      "node_modules/next/dist/pages/_app.js": 4,
-      "external \"next/app\"": 5,
-      "multi node_modules/next/dist/pages/_error.js": 6,
-      "node_modules/next/dist/pages/_error.js": 7,
-      "external \"next/error\"": 8,
-      "multi node_modules/next/dist/pages/_document.js": 9,
-      "node_modules/next/dist/pages/_document.js": 10,
-      "external \"next/document\"": 11
+      "external \"styled-components\"": 1,
+      "external \"next/document\"": 2,
+      "multi ./pages/_document.js": 3,
+      "node_modules/next/dist/build/webpack/loaders/next-babel-loader.js??ref--4!pages/_document.js": 4,
+      "multi ./pages/index.js": 5,
+      "node_modules/next/dist/build/webpack/loaders/next-babel-loader.js??ref--4!pages/index.js": 6,
+      "external \"isomorphic-unfetch\"": 7,
+      "multi node_modules/next/dist/pages/_app.js": 8,
+      "node_modules/next/dist/pages/_app.js": 9,
+      "external \"next/app\"": 10,
+      "multi node_modules/next/dist/pages/_error.js": 11,
+      "node_modules/next/dist/pages/_error.js": 12,
+      "external \"next/error\"": 13
     },
     "usedIds": {
       "0": 0,
@@ -26,26 +28,24 @@
       "8": 8,
       "9": 9,
       "10": 10,
-      "11": 11
+      "11": 11,
+      "12": 12,
+      "13": 13
     }
   },
   "chunks": {
     "byName": {
-      "static/KCp3pVN7HPSXVL9QeqbiU/pages/index.js": 0,
-      "static/KCp3pVN7HPSXVL9QeqbiU/pages/_app.js": 1,
-      "static/KCp3pVN7HPSXVL9QeqbiU/pages/_error.js": 2,
-      "static/KCp3pVN7HPSXVL9QeqbiU/pages/_document.js": 3,
-      "static/8pkzyZ36hCafRUJ1vZkMV/pages/index.js": 4,
-      "static/8pkzyZ36hCafRUJ1vZkMV/pages/_app.js": 5,
-      "static/8pkzyZ36hCafRUJ1vZkMV/pages/_error.js": 6,
-      "static/8pkzyZ36hCafRUJ1vZkMV/pages/_document.js": 7
+      "static/fUq~QjCb6bNhkqE5FBzkC/pages/_document.js": 0,
+      "static/fUq~QjCb6bNhkqE5FBzkC/pages/index.js": 1,
+      "static/fUq~QjCb6bNhkqE5FBzkC/pages/_app.js": 2,
+      "static/fUq~QjCb6bNhkqE5FBzkC/pages/_error.js": 3
     },
     "bySource": {},
     "usedIds": [
-      4,
-      5,
-      6,
-      7
+      0,
+      1,
+      2,
+      3
     ]
   }
 }
