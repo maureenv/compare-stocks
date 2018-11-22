@@ -16,14 +16,33 @@ const HeroTitle = styled.h1`
 
 
 class Index extends Component {
+  state = {
+    stocks: {}
+  }
+
+  componentWillMount() {
+    ( async ()=> {
+      const res = await fetch('https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,fb&types=quote,news,chart&range=1m&last=5')
+      const data = await res.json()
+      const stocks = []
+      const array = Object.keys( data ).map( d => stocks.push( data[d] ))
+      this.setState({ stocks })
+    })()
+  }
 
   render() {
+    const {
+      stocks
+    } = this.state
+
     return (
       <div>
-        <HeroTitle>Cats!</HeroTitle>
+        <HeroTitle>Catssss!</HeroTitle>
+        { stocks.length && stocks.map( s => <p key={s.quote.companyName}>{ s.quote.companyName }</p> )}
       </div>
     )
   }
 }
+
 
 export default Index
