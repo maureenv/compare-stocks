@@ -227,7 +227,8 @@
       "node_modules/@babel/runtime-corejs2/core-js/is-iterable.js": 223,
       "node_modules/core-js/library/fn/is-iterable.js": 224,
       "node_modules/core-js/library/modules/core.is-iterable.js": 225,
-      "node_modules/@babel/runtime-corejs2/helpers/nonIterableSpread.js": 226
+      "node_modules/@babel/runtime-corejs2/helpers/nonIterableSpread.js": 226,
+      "node_modules/punycode/punycode.js": 170
     },
     "usedIds": {
       "0": 0,
@@ -466,16 +467,19 @@
       "static/runtime/main.js": 2,
       "static/KCp3pVN7HPSXVL9QeqbiU/pages/index.js": 3,
       "static/KCp3pVN7HPSXVL9QeqbiU/pages/_app.js": 4,
-      "static/KCp3pVN7HPSXVL9QeqbiU/pages/_error.js": 5
+      "static/KCp3pVN7HPSXVL9QeqbiU/pages/_error.js": 5,
+      "static/8pkzyZ36hCafRUJ1vZkMV/pages/index.js": 6,
+      "static/8pkzyZ36hCafRUJ1vZkMV/pages/_app.js": 7,
+      "static/8pkzyZ36hCafRUJ1vZkMV/pages/_error.js": 8
     },
     "bySource": {},
     "usedIds": [
       0,
       1,
       2,
-      3,
-      4,
-      5
+      6,
+      7,
+      8
     ]
   }
 }

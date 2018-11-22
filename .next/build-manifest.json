@@ -3,22 +3,22 @@
   "pages": {
     "/index": [
       "static/runtime/webpack-42652fa8b82c329c0559.js",
-      "static/chunks/commons.03764baaa60c93a755ce.js",
+      "static/chunks/commons.895ee8967f8f94014aa7.js",
       "static/runtime/main-bee613ba1f8f53e69fbb.js"
     ],
     "/_app": [
       "static/runtime/webpack-42652fa8b82c329c0559.js",
-      "static/chunks/commons.03764baaa60c93a755ce.js",
+      "static/chunks/commons.895ee8967f8f94014aa7.js",
       "static/runtime/main-bee613ba1f8f53e69fbb.js"
     ],
     "/_error": [
       "static/runtime/webpack-42652fa8b82c329c0559.js",
-      "static/chunks/commons.03764baaa60c93a755ce.js",
+      "static/chunks/commons.895ee8967f8f94014aa7.js",
       "static/runtime/main-bee613ba1f8f53e69fbb.js"
     ],
     "/": [
       "static/runtime/webpack-42652fa8b82c329c0559.js",
-      "static/chunks/commons.03764baaa60c93a755ce.js",
+      "static/chunks/commons.895ee8967f8f94014aa7.js",
       "static/runtime/main-bee613ba1f8f53e69fbb.js"
     ]
   }
