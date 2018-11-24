@@ -4783,6 +4783,21 @@ function (_Component) {
       stocks: {}
     });
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "calculateDebtToEquity", function (stock) {
+      var shareholderEquity = stock.financials.financials[0].shareholderEquity;
+      var totalDebt = stock.financials.financials[0].totalDebt;
+      var debtToEquity = (totalDebt / shareholderEquity).toFixed(2);
+      return debtToEquity;
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "calculateAssetTurnover", function (stock) {
+      var totalAssetsThisQuarter = stock.financials.financials[0].totalAssets;
+      var totalAssetsLastQuarter = stock.financials.financials[1].totalAssets;
+      var averageTotalAssets = (totalAssetsThisQuarter + totalAssetsLastQuarter) / 2;
+      var assetTurnover = stock.financials.financials[0].totalRevenue / averageTotalAssets;
+      return assetTurnover.toFixed(2);
+    });
+
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "calculatePayoutRatio", function (stock) {
       var EPS = stock.earnings.earnings.reduce(function (accumulator, currentValue) {
         return accumulator + currentValue.actualEPS;
@@ -4790,13 +4805,6 @@ function (_Component) {
       var dividendRate = stock.stats.dividendRate;
       var payoutRatio = Math.floor(dividendRate / EPS * 100 * 100) / 100;
       return payoutRatio;
-    });
-
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "calculateTotal", function (orders) {
-      var total = orders.reduce(function (accumulator, currentValue) {
-        return accumulator + Number(currentValue.total);
-      }, 0);
-      return total.toLocaleString();
     });
 
     return _this;
@@ -4816,7 +4824,7 @@ function (_Component) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default()('https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,zts&types=quote,stats,company,earnings,chart&range=3m');
+                return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default()('https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,msft&types=quote,stats,financials,company,earnings,chart&range=3m');
 
               case 2:
                 res = _context.sent;
@@ -4848,30 +4856,42 @@ function (_Component) {
       var _this3 = this;
 
       var stocks = this.state.stocks;
-      var tableHeaders = ['Name', 'PEG', 'Price To Earning (P/E)', 'Price to Sales (P/S)', 'Price to Book (P/B)', 'Dividend Yield', 'Dividend Payout', 'Return On Assets', 'Return On Equity', 'Profit Margin', 'Current Ratio', 'Quick Ratio', 'Debt to Equity', 'Interest Coverage', 'Asset Turnover', 'Inventory Turnover'];
+      var tableHeaders = ['Name', 'PEG', //
+      'Price To Earning (P/E)', 'Price to Sales (P/S)', 'Price to Book (P/B)', 'Dividend Yield', 'Dividend Payout', 'Return On Assets', 'Return On Equity', 'Profit Margin', 'Current Ratio', //
+      'Quick Ratio', //
+      'Debt to Equity', 'Interest Coverage', //
+      'Asset Turnover', //
+      'Inventory Turnover'];
+      // still need: PEG, current ratio, quick ratio, intereset coverage, asset turnover, inventory turnover
       console.log(stocks, 'the stocks');
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 71
+          lineNumber: 83
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 72
+          lineNumber: 84
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 85
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 73
+          lineNumber: 86
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 74
+          lineNumber: 87
         },
         __self: this
       }, " Name "), stocks.length && stocks.map(function (s) {
@@ -4879,20 +4899,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 75
+            lineNumber: 88
           },
           __self: this
         }, s.company.companyName);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 77
+          lineNumber: 90
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 78
+          lineNumber: 91
         },
         __self: this
       }, " Sector "), stocks.length && stocks.map(function (s) {
@@ -4900,157 +4920,94 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 79
+            lineNumber: 92
           },
           __self: this
         }, s.company.sector);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 81
+          lineNumber: 94
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 82
+          lineNumber: 95
         },
         __self: this
       }, " Industry "), stocks.length && stocks.map(function (s) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
+          key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 83
+            lineNumber: 96
           },
           __self: this
         }, s.company.industry);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 85
+          lineNumber: 98
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 86
+          lineNumber: 99
         },
         __self: this
       }, " Latest Price "), stocks.length && stocks.map(function (s) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
+          key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 87
+            lineNumber: 100
           },
           __self: this
         }, "$", s.quote.latestPrice);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 89
+          lineNumber: 102
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 90
+          lineNumber: 103
         },
         __self: this
       }, " Price to Earning (P/E) "), stocks.length && stocks.map(function (s) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
+          key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 91
+            lineNumber: 104
           },
           __self: this
         }, s.quote.peRatio);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 93
+          lineNumber: 106
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 94
+          lineNumber: 107
         },
         __self: this
       }, " Price to Sales (P/S) "), stocks.length && stocks.map(function (s) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
+          key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 95
+            lineNumber: 108
           },
           __self: this
         }, s.stats.priceToSales.toFixed(2));
-      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 97
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 98
-        },
-        __self: this
-      }, " Price to Book (P/B) "), stocks.length && stocks.map(function (s) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 99
-          },
-          __self: this
-        }, s.stats.priceToBook);
-      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 101
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 102
-        },
-        __self: this
-      }, " Dividend Yield "), stocks.length && stocks.map(function (s) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 103
-          },
-          __self: this
-        }, s.stats.dividendYield.toFixed(2), "%");
-      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 105
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 106
-        },
-        __self: this
-      }, " Dividend Rate "), stocks.length && stocks.map(function (s) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 107
-          },
-          __self: this
-        }, "$", s.stats.dividendRate.toFixed(2));
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
@@ -5063,79 +5020,205 @@ function (_Component) {
           lineNumber: 111
         },
         __self: this
-      }, " Dividend Payout Ratio "), stocks.length && stocks.map(function (s) {
+      }, " Price to Book (P/B) "), stocks.length && stocks.map(function (s) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
+          key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
             lineNumber: 112
+          },
+          __self: this
+        }, s.stats.priceToBook);
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 114
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 115
+        },
+        __self: this
+      }, " Dividend Yield "), stocks.length && stocks.map(function (s) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+          key: s.company.companyName,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 116
+          },
+          __self: this
+        }, s.stats.dividendYield.toFixed(2), "%");
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 118
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 119
+        },
+        __self: this
+      }, " Dividend Rate "), stocks.length && stocks.map(function (s) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+          key: s.company.companyName,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 120
+          },
+          __self: this
+        }, "$", s.stats.dividendRate.toFixed(2));
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 123
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 124
+        },
+        __self: this
+      }, " Dividend Payout Ratio "), stocks.length && stocks.map(function (s) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+          key: s.company.companyName,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 125
           },
           __self: this
         }, _this3.calculatePayoutRatio(s), "%");
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 115
+          lineNumber: 128
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 116
+          lineNumber: 129
         },
         __self: this
       }, " Return On Assets "), stocks.length && stocks.map(function (s) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
+          key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 117
+            lineNumber: 130
           },
           __self: this
         }, s.stats.returnOnAssets, "%");
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 120
+          lineNumber: 133
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 121
+          lineNumber: 134
         },
         __self: this
       }, " Return On Equity "), stocks.length && stocks.map(function (s) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
+          key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 122
+            lineNumber: 135
           },
           __self: this
         }, s.stats.returnOnEquity, "%");
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 125
+          lineNumber: 138
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 126
+          lineNumber: 139
         },
         __self: this
       }, " Profit Margin "), stocks.length && stocks.map(function (s) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
-          key: s.company.industry,
+          key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 127
+            lineNumber: 140
           },
           __self: this
         }, s.stats.profitMargin, "%");
-      }))));
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 143
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 144
+        },
+        __self: this
+      }, " Profit Margin "), stocks.length && stocks.map(function (s) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+          key: s.company.companyName,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 145
+          },
+          __self: this
+        }, s.stats.profitMargin, "%");
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 148
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 149
+        },
+        __self: this
+      }, " Debt to Equity "), stocks.length && stocks.map(function (s) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+          key: s.company.companyName,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 150
+          },
+          __self: this
+        }, _this3.calculateDebtToEquity(s), "%");
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 153
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 154
+        },
+        __self: this
+      }, " Asset Turnover (Current Quarter)"), stocks.length && stocks.map(function (s) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
+          key: s.company.companyName,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 155
+          },
+          __self: this
+        }, _this3.calculateAssetTurnover(s), "%");
+      })))));
     }
   }]);
 
