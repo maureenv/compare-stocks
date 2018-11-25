@@ -1,97 +1,4 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = require('../../../ssr-module-cache.js');
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		var threw = true;
-/******/ 		try {
-/******/ 			modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 			threw = false;
-/******/ 		} finally {
-/******/ 			if(threw) delete installedModules[moduleId];
-/******/ 		}
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
-/******/ })
-/************************************************************************/
-/******/ ({
+webpackHotUpdate("static/development/pages/index.js",{
 
 /***/ "./pages/index.js":
 /*!************************!*\
@@ -102,18 +9,16 @@ module.exports =
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! isomorphic-unfetch */ "./node_modules/isomorphic-unfetch/browser.js");
 /* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var cheerio__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cheerio */ "cheerio");
+/* harmony import */ var cheerio__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cheerio */ "./node_modules/cheerio/index.js");
 /* harmony import */ var cheerio__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(cheerio__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-chartjs-2 */ "react-chartjs-2");
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
 
 var _jsxFileName = "/Users/maureenvogel/webprojects/stocks/pages/index.js";
 
@@ -152,7 +57,7 @@ var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 var chartData = {
   labels: [],
   datasets: [{
-    label: 'Apple',
+    label: '',
     fill: false,
     lineTension: 0.1,
     backgroundColor: 'rgba(75,192,192,0.4)',
@@ -170,9 +75,9 @@ var chartData = {
     pointHoverBorderWidth: 2,
     pointRadius: 1,
     pointHitRadius: 10,
-    data: []
+    data: [65, 59, 80, 81, 56, 55, 40]
   }, {
-    label: 'Microsoft',
+    label: '',
     fill: false,
     lineTension: 0.1,
     backgroundColor: 'rgba(75,192,192,0.4)',
@@ -190,7 +95,7 @@ var chartData = {
     pointHoverBorderWidth: 2,
     pointRadius: 1,
     pointHitRadius: 10,
-    data: []
+    data: [65, 59, 80, 81, 56, 55, 40]
   }]
 };
 var chartOptions = {
@@ -201,7 +106,7 @@ var chartOptions = {
     }
   },
   legend: {
-    display: true
+    display: false
   },
   scales: {
     xAxes: [{
@@ -220,7 +125,7 @@ var chartOptions = {
     callbacks: {}
   }
 };
-var HeroTitle = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.h1.withConfig({
+var HeroTitle = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].h1.withConfig({
   displayName: "pages__HeroTitle",
   componentId: "sc-1cvwks4-0"
 })(["color:red;position:relative;z-index:1;text-transform:uppercase;font-size:100px;margin-bottom:-10px;font-family:'Anton',sans-serif;text-shadow:-3px 0px 11px rgba(0,0,0,0.7);"]);
@@ -261,12 +166,7 @@ function (_Component) {
         });
         console.log(data, 'the data');
         chartData.datasets[i].data = data;
-      });
-
-      _this.setState({
-        chartData: chartData,
-        chartOptions: chartOptions
-      });
+      }); // chartData.datasets[0].data = totals
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "calculateDebtToEquity", function (stock) {
@@ -353,10 +253,7 @@ function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      var _this$state = this.state,
-          stocks = _this$state.stocks,
-          chartData = _this$state.chartData,
-          chartOptions = _this$state.chartOptions;
+      var stocks = this.state.stocks;
       var tableHeaders = ['Name', 'PEG', //
       'Price To Earning (P/E)', 'Price to Sales (P/S)', 'Price to Book (P/B)', 'Dividend Yield', 'Dividend Payout', 'Return On Assets', 'Return On Equity', 'Profit Margin', 'Current Ratio', //
       'Quick Ratio', //
@@ -367,31 +264,31 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 194
+          lineNumber: 193
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 195
+          lineNumber: 194
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 196
+          lineNumber: 195
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 197
+          lineNumber: 196
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 198
+          lineNumber: 197
         },
         __self: this
       }, " Name "), stocks.length && stocks.map(function (s) {
@@ -399,20 +296,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 199
+            lineNumber: 198
           },
           __self: this
         }, s.company.companyName);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 201
+          lineNumber: 200
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 202
+          lineNumber: 201
         },
         __self: this
       }, " Sector "), stocks.length && stocks.map(function (s) {
@@ -420,20 +317,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 203
+            lineNumber: 202
           },
           __self: this
         }, s.company.sector);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 205
+          lineNumber: 204
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 206
+          lineNumber: 205
         },
         __self: this
       }, " Industry "), stocks.length && stocks.map(function (s) {
@@ -441,20 +338,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 207
+            lineNumber: 206
           },
           __self: this
         }, s.company.industry);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 209
+          lineNumber: 208
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 210
+          lineNumber: 209
         },
         __self: this
       }, " Latest Price "), stocks.length && stocks.map(function (s) {
@@ -462,20 +359,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 211
+            lineNumber: 210
           },
           __self: this
         }, "$", s.quote.latestPrice);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 213
+          lineNumber: 212
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 214
+          lineNumber: 213
         },
         __self: this
       }, " Price to Earning (P/E) "), stocks.length && stocks.map(function (s) {
@@ -483,20 +380,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 215
+            lineNumber: 214
           },
           __self: this
         }, s.quote.peRatio);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 217
+          lineNumber: 216
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 218
+          lineNumber: 217
         },
         __self: this
       }, " Price to Sales (P/S) "), stocks.length && stocks.map(function (s) {
@@ -504,20 +401,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 219
+            lineNumber: 218
           },
           __self: this
         }, s.stats.priceToSales.toFixed(2));
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 221
+          lineNumber: 220
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 222
+          lineNumber: 221
         },
         __self: this
       }, " Price to Book (P/B) "), stocks.length && stocks.map(function (s) {
@@ -525,20 +422,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 223
+            lineNumber: 222
           },
           __self: this
         }, s.stats.priceToBook);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 225
+          lineNumber: 224
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 226
+          lineNumber: 225
         },
         __self: this
       }, " Dividend Yield "), stocks.length && stocks.map(function (s) {
@@ -546,20 +443,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 227
+            lineNumber: 226
           },
           __self: this
         }, s.stats.dividendYield.toFixed(2), "%");
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 229
+          lineNumber: 228
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 230
+          lineNumber: 229
         },
         __self: this
       }, " Dividend Rate "), stocks.length && stocks.map(function (s) {
@@ -567,20 +464,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 231
+            lineNumber: 230
           },
           __self: this
         }, "$", s.stats.dividendRate.toFixed(2));
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 234
+          lineNumber: 233
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 235
+          lineNumber: 234
         },
         __self: this
       }, " Dividend Payout Ratio "), stocks.length && stocks.map(function (s) {
@@ -588,20 +485,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 236
+            lineNumber: 235
           },
           __self: this
         }, _this3.calculatePayoutRatio(s), "%");
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 239
+          lineNumber: 238
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 240
+          lineNumber: 239
         },
         __self: this
       }, " Return On Assets "), stocks.length && stocks.map(function (s) {
@@ -609,20 +506,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 241
+            lineNumber: 240
           },
           __self: this
         }, s.stats.returnOnAssets, "%");
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 244
+          lineNumber: 243
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 245
+          lineNumber: 244
         },
         __self: this
       }, " Return On Equity "), stocks.length && stocks.map(function (s) {
@@ -630,20 +527,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 246
+            lineNumber: 245
           },
           __self: this
         }, s.stats.returnOnEquity, "%");
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 249
+          lineNumber: 248
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 250
+          lineNumber: 249
         },
         __self: this
       }, " Profit Margin "), stocks.length && stocks.map(function (s) {
@@ -651,20 +548,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 251
+            lineNumber: 250
           },
           __self: this
         }, s.stats.profitMargin, "%");
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 254
+          lineNumber: 253
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 255
+          lineNumber: 254
         },
         __self: this
       }, " Debt to Equity "), stocks.length && stocks.map(function (s) {
@@ -672,20 +569,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 256
+            lineNumber: 255
           },
           __self: this
         }, _this3.calculateDebtToEquity(s), "%");
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 259
+          lineNumber: 258
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 260
+          lineNumber: 259
         },
         __self: this
       }, " Asset Turnover (Current Quarter)"), stocks.length && stocks.map(function (s) {
@@ -693,30 +590,20 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 261
+            lineNumber: 260
           },
           __self: this
         }, _this3.calculateAssetTurnover(s), "%");
-      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        style: {
-          height: '500px',
-          width: '800px'
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 266
-        },
-        __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__["Line"], {
+      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__["Line"], {
         data: chartData,
         options: chartOptions,
         redraw: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 267
+          lineNumber: 265
         },
         __self: this
-      })));
+      }));
     }
   }]);
 
@@ -724,86 +611,27 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
+    (function (Component, route) {
+      if(!Component) return
+      if (false) {}
+      module.hot.accept()
+      Component.__route = route
 
-/***/ }),
+      if (module.hot.status() === 'idle') return
 
-/***/ 3:
-/*!******************************!*\
-  !*** multi ./pages/index.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+      var components = next.router.components
+      for (var r in components) {
+        if (!components.hasOwnProperty(r)) continue
 
-module.exports = __webpack_require__(/*! ./pages/index.js */"./pages/index.js");
-
-
-/***/ }),
-
-/***/ "@babel/runtime/regenerator":
-/*!*********************************************!*\
-  !*** external "@babel/runtime/regenerator" ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("@babel/runtime/regenerator");
-
-/***/ }),
-
-/***/ "cheerio":
-/*!**************************!*\
-  !*** external "cheerio" ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("cheerio");
-
-/***/ }),
-
-/***/ "isomorphic-unfetch":
-/*!*************************************!*\
-  !*** external "isomorphic-unfetch" ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("isomorphic-unfetch");
-
-/***/ }),
-
-/***/ "react":
-/*!************************!*\
-  !*** external "react" ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("react");
-
-/***/ }),
-
-/***/ "react-chartjs-2":
-/*!**********************************!*\
-  !*** external "react-chartjs-2" ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("react-chartjs-2");
-
-/***/ }),
-
-/***/ "styled-components":
-/*!************************************!*\
-  !*** external "styled-components" ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("styled-components");
+        if (components[r].Component.__route === route) {
+          next.router.update(r, Component)
+        }
+      }
+    })(typeof __webpack_exports__ !== 'undefined' ? __webpack_exports__.default : (module.exports.default || module.exports), "/")
+  
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/harmony-module.js */ "./node_modules/webpack/buildin/harmony-module.js")(module)))
 
 /***/ })
 
-/******/ });
-//# sourceMappingURL=index.js.map
+})
+//# sourceMappingURL=index.js.71f2aa09bfd37f28a390.hot-update.js.map
