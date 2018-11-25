@@ -1,6 +1,16 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
+import reset from 'styled-reset'
+
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+  @import url('https://fonts.googleapis.com/css?family=Anton|Roboto:300,400,500,700');
+  body {
+    background: #f5f5f5;
+  }
+`
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
@@ -23,6 +33,7 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
+          <GlobalStyle/>
           {/* Step 5: Output the styles in the head  */}
           {this.props.styleTags}
         </Head>

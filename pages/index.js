@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import fetch from 'isomorphic-unfetch'
 import cheerio from 'cheerio'
+import Meta from '../components/meta'
 const url = 'https://www.gurufocus.com/term/peg/AAPL/PEG-Ratio'
 var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 import { Line } from 'react-chartjs-2'
-//<Line data={ chartData } options={ chartOptions } />
+
 
 const chartData = {
   labels: [],
@@ -94,6 +95,12 @@ const HeroTitle = styled.h1`
   margin-bottom: -10px;
   font-family: 'Anton', sans-serif;
   text-shadow: -3px 0px 11px rgba(0,0,0,0.7);
+`
+
+const OuterContainer = styled.div`
+  background: #666;
+  width: 100%;
+  height: 100%;
 `
 
 
@@ -191,7 +198,8 @@ class Index extends Component {
     // still need: PEG, current ratio, quick ratio, intereset coverage, asset turnover, inventory turnover
 
     return (
-      <div>
+      <OuterContainer>
+      <Meta />
         <table>
           <tbody>
             <tr>
@@ -266,7 +274,7 @@ class Index extends Component {
         <div style={{ height: '500px', width: '800px'}}>
           <Line data={ chartData } options={ chartOptions } redraw={ true }/>
         </div>
-      </div>
+      </OuterContainer>
     )
   }
 }
