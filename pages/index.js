@@ -52,7 +52,49 @@ const chartData = {
        pointRadius: 1,
        pointHitRadius: 10,
        data: [],
-   }
+     },
+     {
+       label: 'Microsoft',
+       fill: false,
+       lineTension: 0.1,
+       backgroundColor: 'rgba(75,192,192,0.4)',
+       borderColor: 'rgba(75,192,192,1)',
+       borderCapStyle: 'butt',
+       borderDash: [],
+       borderDashOffset: 0.0,
+       borderJoinStyle: 'miter',
+       pointBorderColor: 'rgba(75,192,192,1)',
+       pointBackgroundColor: '#fff',
+       pointBorderWidth: 1,
+       pointHoverRadius: 5,
+       pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+       pointHoverBorderColor: 'rgba(220,220,220,1)',
+       pointHoverBorderWidth: 2,
+       pointRadius: 1,
+       pointHitRadius: 10,
+       data: [],
+   },
+   {
+     label: 'Microsoft',
+     fill: false,
+     lineTension: 0.1,
+     backgroundColor: 'rgba(75,192,192,0.4)',
+     borderColor: 'rgba(75,192,192,1)',
+     borderCapStyle: 'butt',
+     borderDash: [],
+     borderDashOffset: 0.0,
+     borderJoinStyle: 'miter',
+     pointBorderColor: 'rgba(75,192,192,1)',
+     pointBackgroundColor: '#fff',
+     pointBorderWidth: 1,
+     pointHoverRadius: 5,
+     pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+     pointHoverBorderColor: 'rgba(220,220,220,1)',
+     pointHoverBorderWidth: 2,
+     pointRadius: 1,
+     pointHitRadius: 10,
+     data: [],
+  }
   ],
 }
 
@@ -106,18 +148,19 @@ const OuterContainer = styled.div`
 
 class Index extends Component {
   state = {
-    stocks: {}
+    stocks: {},
+    symbolList: []
   }
 
   componentWillMount() {
-    ( async () => {
-      const res = await fetch('https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,msft&types=quote,stats,financials,company,earnings,chart&range=3m')
-      const data = await res.json()
-      const stocks = []
-      const array = Object.keys( data ).map( d => stocks.push( data[d] ))
-      this.setState({ stocks })
-      this.buildChartData( stocks )
-    })()
+    // ( async () => {
+    //   const res = await fetch('https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,msft&types=quote,stats,financials,company,earnings,chart&range=3m')
+    //   const data = await res.json()
+    //   const stocks = []
+    //   const array = Object.keys( data ).map( d => stocks.push( data[d] ))
+    //   this.setState({ stocks })
+    //   this.buildChartData( stocks )
+    // })()
 
     fetch( proxyUrl + url )
       .then( res => res.text() )
@@ -132,14 +175,12 @@ class Index extends Component {
   }
 
   buildChartData = stocks => {
-    console.log(stocks, 'the stocks')
     const labels = []
     stocks[0].chart.map( c => labels.push( c.date ))
     chartData.labels = labels
     stocks.map(( s, i ) => {
       const data = []
       s.chart.map( c => data.push( c.close ))
-      console.log(data, 'the data')
       chartData.datasets[i].data = data
     })
     this.setState({ chartData, chartOptions })
@@ -168,6 +209,41 @@ class Index extends Component {
     const payoutRatio = Math.floor( ( ( dividendRate / EPS ) * 100 ) * 100 ) / 100
 
     return payoutRatio
+  }
+
+  setSymbol = ( index, event ) => {
+    const text = event.target.value
+    const symbolList = [...this.state.symbolList]
+    symbolList[index] = text
+    this.setState({ symbolList })
+  }
+
+  submit = () => {
+    ( async () => {
+      const { symbolList } = this.state
+      const removeFromList = [undefined, null]
+      const filteredList = symbolList.filter( i => !removeFromList.includes( i ))
+      this.setState({ symbolList: filteredList })
+      console.log(filteredList.join(","), 'after')
+
+      const res = await fetch(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${ filteredList.join(",")}&types=quote,stats,financials,company,earnings,chart&range=3m`)
+      const data = await res.json()
+      console.log(data, 'the data')
+      const stocks = []
+      const array = Object.keys( data ).map( d => stocks.push( data[d] ))
+      this.setState({ stocks })
+      this.buildChartData( stocks )
+    })()
+  }
+
+  renderInputFields = () => {
+    return Array.from(new Array( 5 ), (val, i ) => {
+      return (
+        <th key={ i }>
+          <input type="text" placeholder="Enter stock symbol" value={ this.state.symbolList[i] || '' } onChange={ e => this.setSymbol( i, e )}/>
+        </th>
+      )
+    })
   }
 
   render() {
@@ -202,6 +278,11 @@ class Index extends Component {
       <Meta />
         <table>
           <tbody>
+            <tr>
+              <th> Stock Symbol </th>
+              { this.renderInputFields() }
+              <button onClick={ () => this.submit() }> Go </button>
+            </tr>
             <tr>
               <th> Name </th>
               { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.company.companyName }</th> ) }
