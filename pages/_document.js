@@ -6,9 +6,19 @@ import reset from 'styled-reset'
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-  @import url('https://fonts.googleapis.com/css?family=Anton|Roboto:300,400,500,700');
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
   body {
-    background: #f5f5f5;
+    background: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  #__next {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `
 

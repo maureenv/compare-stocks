@@ -7,7 +7,6 @@ const url = 'https://www.gurufocus.com/term/peg/AAPL/PEG-Ratio'
 var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 import { Line } from 'react-chartjs-2'
 
-
 const chartData = {
   labels: [],
   datasets: [
@@ -126,7 +125,11 @@ const chartOptions = {
   },
 }
 
-
+const ChartContainer = styled.div`
+  height: 500px;
+  width: 100%;
+  margin-top: 50px;
+`
 
 const HeroTitle = styled.h1`
   color:red;
@@ -139,12 +142,37 @@ const HeroTitle = styled.h1`
   text-shadow: -3px 0px 11px rgba(0,0,0,0.7);
 `
 
-const OuterContainer = styled.div`
-  background: #666;
-  width: 100%;
-  height: 100%;
+const Tbody = styled.tbody`
+border-bottom: 1px solid gray;
 `
 
+const OuterContainer = styled.div`
+  background: #f5f5f5;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+`
+
+const InnerContainer = styled.div`
+  padding: 20px;
+`
+
+const Tr = styled.tr`
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+`
+
+const Th = styled.th`
+  text-align: ${ props => props.left ? 'left' : 'right'};
+  padding: 10px 20px;
+  border-bottom: 1px solid #d6d6d6;
+  font-size: 13px;
+`
 
 class Index extends Component {
   state = {
@@ -167,7 +195,8 @@ class Index extends Component {
       .then( (body ) => {
         // comp_name
         const test = cheerio.load(body)
-        console.log(test('.comp_name font').text(), 'the test')
+        //console.log(test('.comp_name font').text(), 'the test')
+
         // test('.comp_name font').each(( index, element ) => {
         //   console.log(element, 'the index')
         // })
@@ -212,38 +241,126 @@ class Index extends Component {
   }
 
   setSymbol = ( index, event ) => {
-    const text = event.target.value
-    const symbolList = [...this.state.symbolList]
-    symbolList[index] = text
-    this.setState({ symbolList })
+    ( async () => {
+      const text = event.target.value
+
+      const symbolList = [...this.state.symbolList]
+      symbolList[index] = text
+      this.setState({ symbolList })
+      // const res = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${ text }&apikey=KT28GNBJ2ECP4SJ1`)
+      // const data = await res.json()
+      //console.log(data, 'the data from search')
+    })()
   }
 
   submit = () => {
     ( async () => {
       const { symbolList } = this.state
-      const removeFromList = [undefined, null]
-      const filteredList = symbolList.filter( i => !removeFromList.includes( i ))
-      this.setState({ symbolList: filteredList })
-      console.log(filteredList.join(","), 'after')
+      if ( symbolList.length > 0 ) {
+        const removeFromList = [undefined, null]
+        const filteredList = symbolList.filter( i => !removeFromList.includes( i ))
+        this.setState({ symbolList: filteredList })
 
-      const res = await fetch(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${ filteredList.join(",")}&types=quote,stats,financials,company,earnings,chart&range=3m`)
-      const data = await res.json()
-      console.log(data, 'the data')
-      const stocks = []
-      const array = Object.keys( data ).map( d => stocks.push( data[d] ))
-      this.setState({ stocks })
-      this.buildChartData( stocks )
+        const res = await fetch(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${ filteredList.join(",")}&types=quote,stats,financials,company,earnings,chart&range=3m`)
+        const data = await res.json()
+        console.log(data, 'the data in submit')
+        const stocks = []
+        const array = Object.keys( data ).map( d => stocks.push( data[d] ))
+        this.setState({ stocks })
+        this.buildChartData( stocks )
+      }
     })()
   }
 
   renderInputFields = () => {
-    return Array.from(new Array( 5 ), (val, i ) => {
+    return Array.from(new Array( 4 ), (val, i ) => {
       return (
-        <th key={ i }>
+        <Th key={ i }>
           <input type="text" placeholder="Enter stock symbol" value={ this.state.symbolList[i] || '' } onChange={ e => this.setSymbol( i, e )}/>
-        </th>
+        </Th>
       )
     })
+  }
+
+  getValue = value => {
+    if ( typeof( value ) === "string" ) {
+      return value
+    }
+    else if ( value === 0 ) {
+      return 0
+    }
+    else if ( typeof( value ) === "number" ) {
+      //return Math.floor( value * 100 ) / 100
+      return value.toFixed(2)
+    }
+    else if ( value === null || value === undefined ) {
+      return 'N/A'
+    }
+    else {
+      return value
+    }
+  }
+
+  getCalculatedValues = functionName => {
+    const { stocks } = this.state
+    console.log(functionName, 'function name')
+    if ( stocks.length ) {
+      switch ( functionName ) {
+        case 'calculatePayoutRatio':
+          return (
+            stocks.map( s => <Th key={ s.company.companyName }>{ this.calculatePayoutRatio( s ) }%</Th> )
+          )
+          break
+        case 'calculateDebtToEquity':
+          return (
+            stocks.map( s => <Th key={ s.company.companyName }>{ this.calculateDebtToEquity( s )}% </Th> )
+          )
+          break
+        case 'calculateAssetTurnover':
+          return (
+            stocks.map( s => <Th key={ s.company.companyName }>{ this.calculateAssetTurnover( s ) }%</Th> )
+          )
+          break
+        default:
+          return
+      }
+    }
+    else {
+      return <Th colSpan="4"/>
+    }
+  }
+
+  renderCalculatedRow = ( title, functionName ) => {
+    const { stocks } = this.state
+
+    return (
+      <Tr>
+        <Th left={ true }>{ title }</Th>
+        { this.getCalculatedValues( functionName ) }
+        { stocks.length < 4 && <Th colSpan={ 4 - stocks.length }/> }
+      </Tr>
+    )
+  }
+
+  renderTableRow = ( title, category, subcategory, isDollar, isPercent ) => {
+    const { stocks } = this.state
+
+    return (
+      <Tr>
+        <Th left={ true }>{ title }</Th>
+        { stocks.length ?
+          stocks.map( s =>
+            <Th key={ s.company.companyName }>
+              { isDollar && s[category][subcategory] !== null && '$' }
+              { this.getValue( s[category][subcategory] ) }
+              { isPercent && s[category][subcategory] !== null && '%'}
+            </Th> )
+            :
+            <Th colSpan="4"/>
+        }
+        { stocks.length < 4 && <Th colSpan={ 4 - stocks.length }/> }
+      </Tr>
+    )
   }
 
   render() {
@@ -275,86 +392,37 @@ class Index extends Component {
 
     return (
       <OuterContainer>
-      <Meta />
-        <table>
-          <tbody>
-            <tr>
-              <th> Stock Symbol </th>
-              { this.renderInputFields() }
-              <button onClick={ () => this.submit() }> Go </button>
-            </tr>
-            <tr>
-              <th> Name </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.company.companyName }</th> ) }
-            </tr>
-            <tr>
-              <th> Sector </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.company.sector }</th> ) }
-            </tr>
-            <tr>
-              <th> Industry </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.company.industry }</th> ) }
-            </tr>
-            <tr>
-              <th> Latest Price </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>${ s.quote.latestPrice }</th> ) }
-            </tr>
-            <tr>
-              <th> Price to Earning (P/E) </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.quote.peRatio }</th> ) }
-            </tr>
-            <tr>
-              <th> Price to Sales (P/S) </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.stats.priceToSales.toFixed( 2 ) }</th> ) }
-            </tr>
-            <tr>
-              <th> Price to Book (P/B) </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.stats.priceToBook }</th> ) }
-            </tr>
-            <tr>
-              <th> Dividend Yield </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.stats.dividendYield.toFixed( 2 ) }%</th> ) }
-            </tr>
-            <tr>
-              <th> Dividend Rate </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>${ s.stats.dividendRate.toFixed( 2 ) }</th> ) }
+        <Meta />
+        <InnerContainer>
+          <table>
+            <tbody>
+              <Tr>
+                <Th left={ true }> Stock Symbol </Th>
+                { this.renderInputFields() }
+                <button onClick={ () => this.submit() }> Go </button>
+              </Tr>
+              { this.renderTableRow( 'Name', 'company', 'companyName', false, false )}
+              { this.renderTableRow( 'Sector', 'company', 'sector', false, false )}
+              { this.renderTableRow( 'Industry', 'company', 'industry', false, false )}
+              { this.renderTableRow( 'Latest Price', 'quote', 'latestPrice', true, false )}
+              { this.renderTableRow( 'Price to Earning (P/E)', 'quote', 'peRatio', false, true )}
+              { this.renderTableRow( 'Price to Sales (P/S)', 'stats', 'priceToSales', false, true )}
+              { this.renderTableRow( 'Price to Book (P/B)', 'stats', 'priceToBook', false, true )}
+              { this.renderTableRow( 'Dividend Yield', 'stats', 'dividendYield', false, true )}
+              { this.renderTableRow( 'Dividend Rate', 'stats', 'dividendRate', true, false )}
               {/* THis is the amount receieved per year per stock (paid out quarterly)*/}
-            </tr>
-            <tr>
-              <th> Dividend Payout Ratio </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ this.calculatePayoutRatio( s )}%</th> ) }
-              {/* search company payout ratio */}
-            </tr>
-            <tr>
-              <th> Return On Assets </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.stats.returnOnAssets }%</th> ) }
-              {/* search company payout ratio */}
-            </tr>
-            <tr>
-              <th> Return On Equity </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.stats.returnOnEquity }%</th> ) }
-              {/* search company payout ratio */}
-            </tr>
-            <tr>
-              <th> Profit Margin </th>
-              { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ s.stats.profitMargin }%</th> ) }
-              {/* search company payout ratio */}
-            </tr>
-            <tr>
-              <th> Debt to Equity </th>
-                { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ this.calculateDebtToEquity( s )}%</th> ) }
-              {/* search company payout ratio */}
-            </tr>
-            <tr>
-              <th> Asset Turnover (Current Quarter)</th>
-                { stocks.length && stocks.map( s => <th key={ s.company.companyName }>{ this.calculateAssetTurnover( s )}%</th> ) }
-              {/* search company payout ratio */}
-            </tr>
-          </tbody>
-        </table>
-        <div style={{ height: '500px', width: '800px'}}>
-          <Line data={ chartData } options={ chartOptions } redraw={ true }/>
-        </div>
+              { this.renderCalculatedRow( 'Dividend Payout Ratio', 'calculatePayoutRatio' )}
+              { this.renderTableRow( 'Return On Assets', 'stats', 'returnOnAssets', false, true )}
+              { this.renderTableRow( 'Return On Equity', 'stats', 'returnOnEquity', false, true )}
+              { this.renderTableRow( 'Profit Margin', 'stats', 'profitMargin', false, true )}
+              { this.renderCalculatedRow( 'Debt to Equity', 'calculateDebtToEquity' )}
+              { this.renderCalculatedRow( 'Asset Turnover (Current Quarter)', 'calculateAssetTurnover' )}
+            </tbody>
+          </table>
+          <ChartContainer>
+            <Line data={ chartData } options={ chartOptions } redraw={ true }/>
+          </ChartContainer>
+        </InnerContainer>
       </OuterContainer>
     )
   }
