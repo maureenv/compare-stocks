@@ -8,96 +8,12 @@ var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 import { Line } from 'react-chartjs-2'
 import Select from 'react-select'
 // https://codepen.io/anon/pen/gQBGdR FIXED HEADER
-
+// https://github.com/jerairrest/react-chartjs-2/issues/81 create custom legend?
+// https://github.com/chartjs/Chart.js/issues/3150 show hide bar lines on custom click
 
 const chartData = {
   labels: [],
-  datasets: [
-  //   {
-  //      label: 'Apple',
-  //      fill: false,
-  //      lineTension: 0.1,
-  //      backgroundColor: 'rgba(75,192,192,0.4)',
-  //      borderColor: 'rgba(75,192,192,1)',
-  //      borderCapStyle: 'butt',
-  //      borderDash: [],
-  //      borderDashOffset: 0.0,
-  //      borderJoinStyle: 'miter',
-  //      pointBorderColor: 'rgba(75,192,192,1)',
-  //      pointBackgroundColor: '#fff',
-  //      pointBorderWidth: 1,
-  //      pointHoverRadius: 5,
-  //      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-  //      pointHoverBorderColor: 'rgba(220,220,220,1)',
-  //      pointHoverBorderWidth: 2,
-  //      pointRadius: 1,
-  //      pointHitRadius: 10,
-  //      data: [],
-  //    },
-  //    {
-  //      label: 'Microsoft',
-  //      fill: false,
-  //      lineTension: 0.1,
-  //      backgroundColor: 'rgba(75,192,192,0.4)',
-  //      borderColor: 'rgba(75,192,192,1)',
-  //      borderCapStyle: 'butt',
-  //      borderDash: [],
-  //      borderDashOffset: 0.0,
-  //      borderJoinStyle: 'miter',
-  //      pointBorderColor: 'rgba(75,192,192,1)',
-  //      pointBackgroundColor: '#fff',
-  //      pointBorderWidth: 1,
-  //      pointHoverRadius: 5,
-  //      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-  //      pointHoverBorderColor: 'rgba(220,220,220,1)',
-  //      pointHoverBorderWidth: 2,
-  //      pointRadius: 1,
-  //      pointHitRadius: 10,
-  //      data: [],
-  //    },
-  //    {
-  //      label: 'Microsoft',
-  //      fill: false,
-  //      lineTension: 0.1,
-  //      backgroundColor: 'rgba(75,192,192,0.4)',
-  //      borderColor: 'rgba(75,192,192,1)',
-  //      borderCapStyle: 'butt',
-  //      borderDash: [],
-  //      borderDashOffset: 0.0,
-  //      borderJoinStyle: 'miter',
-  //      pointBorderColor: 'rgba(75,192,192,1)',
-  //      pointBackgroundColor: '#fff',
-  //      pointBorderWidth: 1,
-  //      pointHoverRadius: 5,
-  //      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-  //      pointHoverBorderColor: 'rgba(220,220,220,1)',
-  //      pointHoverBorderWidth: 2,
-  //      pointRadius: 1,
-  //      pointHitRadius: 10,
-  //      data: [],
-  //  },
-  //  {
-  //    label: 'Microsoft',
-  //    fill: false,
-  //    lineTension: 0.1,
-  //    backgroundColor: 'rgba(75,192,192,0.4)',
-  //    borderColor: 'rgba(75,192,192,1)',
-  //    borderCapStyle: 'butt',
-  //    borderDash: [],
-  //    borderDashOffset: 0.0,
-  //    borderJoinStyle: 'miter',
-  //    pointBorderColor: 'rgba(75,192,192,1)',
-  //    pointBackgroundColor: '#fff',
-  //    pointBorderWidth: 1,
-  //    pointHoverRadius: 5,
-  //    pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-  //    pointHoverBorderColor: 'rgba(220,220,220,1)',
-  //    pointHoverBorderWidth: 2,
-  //    pointRadius: 1,
-  //    pointHitRadius: 10,
-  //    data: [],
-  // }
-  ],
+  datasets: [],
 }
 
 const chartOptions = {
@@ -108,7 +24,7 @@ const chartOptions = {
     },
   },
   legend: {
-    display: true,
+    display: false,
   },
   scales: {
     xAxes: [{
@@ -127,6 +43,8 @@ const chartOptions = {
     callbacks: {},
   },
 }
+
+const chartColors = ['#0d60bb', '#01a8d2', '#1dc7a3', '#0db106']
 
 const ChartContainer = styled.div`
   height: 500px;
@@ -189,15 +107,27 @@ const SelectStyles = styled.div`
     width: 200px;
   }
 `
-//
-// <Dropdown>
-//   { this.state[`matches${ i }`].map( m =>
-//     <div className="match">
-//       <p className="symbol">{ m['1. symbol']}</p>
-//       <p className="company-name">{ m['2. name'] }</p>
-//     </div>
-//   )}
-// </Dropdown>
+
+const Bullet = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: ${ props => props.color };
+`
+
+const LegendName = styled.p`
+  font-size: 13px;
+  font-family: 'Roboto', sans-serif;
+`
+
+const LegendItemContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const ChartLegend = styled.div`
+
+`
 
 const Dropdown = styled.div`
   position: absolute;
@@ -274,33 +204,37 @@ class Index extends Component {
     chartData.labels = labels
     stocks.map(( s, i ) => {
       const data = []
-      console.log(s, 'the chart')
       s.chart.map( c => data.push( c.close ))
-      chartData.datasets.push(
-      {
+      chartData.datasets.push({
          label: s.company.companyName,
          fill: false,
          lineTension: 0.1,
-         backgroundColor: 'rgba(75,192,192,0.4)',
-         borderColor: 'rgba(75,192,192,1)',
+         backgroundColor: chartColors[i],
+         borderColor: chartColors[i],
          borderCapStyle: 'butt',
          borderDash: [],
          borderDashOffset: 0.0,
          borderJoinStyle: 'miter',
-         pointBorderColor: 'rgba(75,192,192,1)',
+         pointBorderColor: chartColors[i],
          pointBackgroundColor: '#fff',
          pointBorderWidth: 1,
          pointHoverRadius: 5,
-         pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-         pointHoverBorderColor: 'rgba(220,220,220,1)',
+         pointHoverBackgroundColor: chartColors[i],
+         pointHoverBorderColor: chartColors[i],
          pointHoverBorderWidth: 2,
          pointRadius: 1,
          pointHitRadius: 10,
          data: data,
-       }
-      )
+      })
     })
+
     this.setState({ chartData, chartOptions })
+
+    // if ( chartFilter === 'total' ) {
+    // chartOptions.tooltips.callbacks.label = tooltipItem => '$' + tooltipItem.yLabel.toLocaleString()
+    // chartOptions.scales.yAxes[0].ticks.callback = value => '$' + value.toLocaleString()
+    // chartData.datasets[0].data = Object.values( chartDataArray ).map( i => i.toFixed( 2 ))
+
   }
 
   calculateDebtToEquity = stock => {
@@ -412,6 +346,17 @@ class Index extends Component {
         </Th>
       )
     })
+  }
+
+  renderLegend = () => {
+    const { stocks } = this.state
+    console.log(stocks, 'teh stocks in legend')
+    return stocks.length && stocks.map( ( s, i ) =>
+      <LegendItemContainer>
+        <Bullet color={ chartColors[i] }/>
+        <LegendName>{ s.company.companyName }</LegendName>
+      </LegendItemContainer>
+    )
   }
 
   getValue = value => {
@@ -551,6 +496,7 @@ class Index extends Component {
             </tbody>
           </Table>
           <ChartContainer>
+            <ChartLegend>{ this.renderLegend() }</ChartLegend>
             <Line data={ chartData } options={ chartOptions } redraw={ true }/>
           </ChartContainer>
         </InnerContainer>
