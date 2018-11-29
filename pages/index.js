@@ -112,6 +112,7 @@ const Bullet = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 10px;
+  margin-right: 8px;
   background-color: ${ props => props.color };
 `
 
@@ -123,10 +124,12 @@ const LegendName = styled.p`
 const LegendItemContainer = styled.div`
   display: flex;
   align-items: center;
+  margin: 0 20px;
 `
 
 const ChartLegend = styled.div`
-
+  display: flex;
+  justify-content: center;
 `
 
 const Dropdown = styled.div`
@@ -317,7 +320,9 @@ class Index extends Component {
         const stocks = []
         const array = Object.keys( data ).map( d => stocks.push( data[d] ))
         if ( stocks.length > 0 ) {
-          this.setState({ stocks })
+          // const chartItemVisible = []
+          // stocks.map( ( s, i ) => chartItemVisible.push( false ) )
+          this.setState({ stocks, line0: true, line1: true, line2: true, line3: true })
           this.buildChartData( stocks )
         }
       }
@@ -348,11 +353,20 @@ class Index extends Component {
     })
   }
 
+  toggleLine = i => {
+    //    console.log( this.state[`line${ i }`], 'the toggled state')
+    // this.setState( prevState => ({ [`line${ i }`]: !prevState[`line${ i }`] }) )
+    //
+    // console.log( this.state[`line${ i }`], 'the toggled state')
+    this.refs.chart.chartInstance.getDatasetMeta( i ).hidden = this.state[`line${ i }`]
+    this.setState( prevState => ({ [`line${ i }`]: !prevState[`line${ i }`] }) )
+    this.refs.chart.chartInstance.update()
+  }
+
   renderLegend = () => {
     const { stocks } = this.state
-    console.log(stocks, 'teh stocks in legend')
     return stocks.length && stocks.map( ( s, i ) =>
-      <LegendItemContainer>
+      <LegendItemContainer onClick={ () => this.toggleLine( i ) }>
         <Bullet color={ chartColors[i] }/>
         <LegendName>{ s.company.companyName }</LegendName>
       </LegendItemContainer>
@@ -497,7 +511,7 @@ class Index extends Component {
           </Table>
           <ChartContainer>
             <ChartLegend>{ this.renderLegend() }</ChartLegend>
-            <Line data={ chartData } options={ chartOptions } redraw={ true }/>
+            <Line ref="chart" data={ chartData } options={ chartOptions } redraw={ false }/>
           </ChartContainer>
         </InnerContainer>
       </OuterContainer>
