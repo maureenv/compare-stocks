@@ -13,90 +13,90 @@ import Select from 'react-select'
 const chartData = {
   labels: [],
   datasets: [
-    {
-       label: 'Apple',
-       fill: false,
-       lineTension: 0.1,
-       backgroundColor: 'rgba(75,192,192,0.4)',
-       borderColor: 'rgba(75,192,192,1)',
-       borderCapStyle: 'butt',
-       borderDash: [],
-       borderDashOffset: 0.0,
-       borderJoinStyle: 'miter',
-       pointBorderColor: 'rgba(75,192,192,1)',
-       pointBackgroundColor: '#fff',
-       pointBorderWidth: 1,
-       pointHoverRadius: 5,
-       pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-       pointHoverBorderColor: 'rgba(220,220,220,1)',
-       pointHoverBorderWidth: 2,
-       pointRadius: 1,
-       pointHitRadius: 10,
-       data: [],
-     },
-     {
-       label: 'Microsoft',
-       fill: false,
-       lineTension: 0.1,
-       backgroundColor: 'rgba(75,192,192,0.4)',
-       borderColor: 'rgba(75,192,192,1)',
-       borderCapStyle: 'butt',
-       borderDash: [],
-       borderDashOffset: 0.0,
-       borderJoinStyle: 'miter',
-       pointBorderColor: 'rgba(75,192,192,1)',
-       pointBackgroundColor: '#fff',
-       pointBorderWidth: 1,
-       pointHoverRadius: 5,
-       pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-       pointHoverBorderColor: 'rgba(220,220,220,1)',
-       pointHoverBorderWidth: 2,
-       pointRadius: 1,
-       pointHitRadius: 10,
-       data: [],
-     },
-     {
-       label: 'Microsoft',
-       fill: false,
-       lineTension: 0.1,
-       backgroundColor: 'rgba(75,192,192,0.4)',
-       borderColor: 'rgba(75,192,192,1)',
-       borderCapStyle: 'butt',
-       borderDash: [],
-       borderDashOffset: 0.0,
-       borderJoinStyle: 'miter',
-       pointBorderColor: 'rgba(75,192,192,1)',
-       pointBackgroundColor: '#fff',
-       pointBorderWidth: 1,
-       pointHoverRadius: 5,
-       pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-       pointHoverBorderColor: 'rgba(220,220,220,1)',
-       pointHoverBorderWidth: 2,
-       pointRadius: 1,
-       pointHitRadius: 10,
-       data: [],
-   },
-   {
-     label: 'Microsoft',
-     fill: false,
-     lineTension: 0.1,
-     backgroundColor: 'rgba(75,192,192,0.4)',
-     borderColor: 'rgba(75,192,192,1)',
-     borderCapStyle: 'butt',
-     borderDash: [],
-     borderDashOffset: 0.0,
-     borderJoinStyle: 'miter',
-     pointBorderColor: 'rgba(75,192,192,1)',
-     pointBackgroundColor: '#fff',
-     pointBorderWidth: 1,
-     pointHoverRadius: 5,
-     pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-     pointHoverBorderColor: 'rgba(220,220,220,1)',
-     pointHoverBorderWidth: 2,
-     pointRadius: 1,
-     pointHitRadius: 10,
-     data: [],
-  }
+  //   {
+  //      label: 'Apple',
+  //      fill: false,
+  //      lineTension: 0.1,
+  //      backgroundColor: 'rgba(75,192,192,0.4)',
+  //      borderColor: 'rgba(75,192,192,1)',
+  //      borderCapStyle: 'butt',
+  //      borderDash: [],
+  //      borderDashOffset: 0.0,
+  //      borderJoinStyle: 'miter',
+  //      pointBorderColor: 'rgba(75,192,192,1)',
+  //      pointBackgroundColor: '#fff',
+  //      pointBorderWidth: 1,
+  //      pointHoverRadius: 5,
+  //      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+  //      pointHoverBorderColor: 'rgba(220,220,220,1)',
+  //      pointHoverBorderWidth: 2,
+  //      pointRadius: 1,
+  //      pointHitRadius: 10,
+  //      data: [],
+  //    },
+  //    {
+  //      label: 'Microsoft',
+  //      fill: false,
+  //      lineTension: 0.1,
+  //      backgroundColor: 'rgba(75,192,192,0.4)',
+  //      borderColor: 'rgba(75,192,192,1)',
+  //      borderCapStyle: 'butt',
+  //      borderDash: [],
+  //      borderDashOffset: 0.0,
+  //      borderJoinStyle: 'miter',
+  //      pointBorderColor: 'rgba(75,192,192,1)',
+  //      pointBackgroundColor: '#fff',
+  //      pointBorderWidth: 1,
+  //      pointHoverRadius: 5,
+  //      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+  //      pointHoverBorderColor: 'rgba(220,220,220,1)',
+  //      pointHoverBorderWidth: 2,
+  //      pointRadius: 1,
+  //      pointHitRadius: 10,
+  //      data: [],
+  //    },
+  //    {
+  //      label: 'Microsoft',
+  //      fill: false,
+  //      lineTension: 0.1,
+  //      backgroundColor: 'rgba(75,192,192,0.4)',
+  //      borderColor: 'rgba(75,192,192,1)',
+  //      borderCapStyle: 'butt',
+  //      borderDash: [],
+  //      borderDashOffset: 0.0,
+  //      borderJoinStyle: 'miter',
+  //      pointBorderColor: 'rgba(75,192,192,1)',
+  //      pointBackgroundColor: '#fff',
+  //      pointBorderWidth: 1,
+  //      pointHoverRadius: 5,
+  //      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+  //      pointHoverBorderColor: 'rgba(220,220,220,1)',
+  //      pointHoverBorderWidth: 2,
+  //      pointRadius: 1,
+  //      pointHitRadius: 10,
+  //      data: [],
+  //  },
+  //  {
+  //    label: 'Microsoft',
+  //    fill: false,
+  //    lineTension: 0.1,
+  //    backgroundColor: 'rgba(75,192,192,0.4)',
+  //    borderColor: 'rgba(75,192,192,1)',
+  //    borderCapStyle: 'butt',
+  //    borderDash: [],
+  //    borderDashOffset: 0.0,
+  //    borderJoinStyle: 'miter',
+  //    pointBorderColor: 'rgba(75,192,192,1)',
+  //    pointBackgroundColor: '#fff',
+  //    pointBorderWidth: 1,
+  //    pointHoverRadius: 5,
+  //    pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+  //    pointHoverBorderColor: 'rgba(220,220,220,1)',
+  //    pointHoverBorderWidth: 2,
+  //    pointRadius: 1,
+  //    pointHitRadius: 10,
+  //    data: [],
+  // }
   ],
 }
 
@@ -268,13 +268,37 @@ class Index extends Component {
   }
 
   buildChartData = stocks => {
+    chartData.datasets = []
     const labels = []
     stocks[0].chart.map( c => labels.push( c.date ))
     chartData.labels = labels
     stocks.map(( s, i ) => {
       const data = []
+      console.log(s, 'the chart')
       s.chart.map( c => data.push( c.close ))
-      chartData.datasets[i].data = data
+      chartData.datasets.push(
+      {
+         label: s.company.companyName,
+         fill: false,
+         lineTension: 0.1,
+         backgroundColor: 'rgba(75,192,192,0.4)',
+         borderColor: 'rgba(75,192,192,1)',
+         borderCapStyle: 'butt',
+         borderDash: [],
+         borderDashOffset: 0.0,
+         borderJoinStyle: 'miter',
+         pointBorderColor: 'rgba(75,192,192,1)',
+         pointBackgroundColor: '#fff',
+         pointBorderWidth: 1,
+         pointHoverRadius: 5,
+         pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+         pointHoverBorderColor: 'rgba(220,220,220,1)',
+         pointHoverBorderWidth: 2,
+         pointRadius: 1,
+         pointHitRadius: 10,
+         data: data,
+       }
+      )
     })
     this.setState({ chartData, chartOptions })
   }
@@ -340,6 +364,12 @@ class Index extends Component {
     this.setState({ symbolList })
   }
 
+  clearMatches = i => {
+    setTimeout( () => {
+      this.setState({ [`matches${ i }`]: null })
+    }, 100 )
+  }
+
   submit = () => {
     ( async () => {
       const { symbolList } = this.state
@@ -352,8 +382,10 @@ class Index extends Component {
         const data = await res.json()
         const stocks = []
         const array = Object.keys( data ).map( d => stocks.push( data[d] ))
-        this.setState({ stocks })
-        this.buildChartData( stocks )
+        if ( stocks.length > 0 ) {
+          this.setState({ stocks })
+          this.buildChartData( stocks )
+        }
       }
     })()
   }
@@ -365,7 +397,7 @@ class Index extends Component {
       return (
         <Th left={ true } key={ i }>
           <DropdownContainer>
-            <input className="input" type="text" placeholder="Enter stock symbol" value={ symbolList[i] || '' } onChange={ e => this.setSymbol( i, e, 'input' )}/>
+            <input className="input" type="text" placeholder="Enter stock symbol" value={ symbolList[i] || '' } onChange={ e => this.setSymbol( i, e, 'input' )} onBlur={ () => this.clearMatches( i ) }/>
             { this.state[`matches${ i }`] &&
               <Dropdown>
                 { this.state[`matches${ i }`].map( m =>
