@@ -277,6 +277,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_meta__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/meta */ "./components/meta.js");
 /* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-chartjs-2 */ "react-chartjs-2");
 /* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-select */ "react-select");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_select__WEBPACK_IMPORTED_MODULE_7__);
 
 var _jsxFileName = "/Users/maureenvogel/webprojects/stocks/pages/index.js";
 
@@ -319,6 +321,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var url = 'https://www.gurufocus.com/term/peg/AAPL/PEG-Ratio';
 var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
+ // https://codepen.io/anon/pen/gQBGdR FIXED HEADER
 
 var chartData = {
   labels: [],
@@ -432,35 +436,64 @@ var chartOptions = {
   }
 };
 var ChartContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
-  displayName: "pages__ChartContainer",
+  displayName: "ChartContainer",
   componentId: "sc-1cvwks4-0"
 })(["height:500px;width:100%;margin-top:50px;"]);
 var HeroTitle = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.h1.withConfig({
-  displayName: "pages__HeroTitle",
+  displayName: "HeroTitle",
   componentId: "sc-1cvwks4-1"
 })(["color:red;position:relative;z-index:1;text-transform:uppercase;font-size:100px;margin-bottom:-10px;font-family:'Anton',sans-serif;text-shadow:-3px 0px 11px rgba(0,0,0,0.7);"]);
-var Tbody = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.tbody.withConfig({
-  displayName: "pages__Tbody",
+var Table = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.table.withConfig({
+  displayName: "Table",
   componentId: "sc-1cvwks4-2"
+})([""]);
+var Tbody = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.tbody.withConfig({
+  displayName: "Tbody",
+  componentId: "sc-1cvwks4-3"
 })(["border-bottom:1px solid gray;"]);
 var OuterContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
-  displayName: "pages__OuterContainer",
-  componentId: "sc-1cvwks4-3"
+  displayName: "OuterContainer",
+  componentId: "sc-1cvwks4-4"
 })(["background:#f5f5f5;width:100%;height:100%;border-radius:4px;max-width:1200px;display:flex;align-items:center;justify-content:center;margin:20px;"]);
 var InnerContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
-  displayName: "pages__InnerContainer",
-  componentId: "sc-1cvwks4-4"
-})(["padding:20px;"]);
-var Tr = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.tr.withConfig({
-  displayName: "pages__Tr",
+  displayName: "InnerContainer",
   componentId: "sc-1cvwks4-5"
-})(["font-family:'Roboto',sans-serif;text-align:left;"]);
-var Th = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.th.withConfig({
-  displayName: "pages__Th",
+})(["padding:20px;width:100%;max-width:1000px;"]);
+var Tr = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.tr.withConfig({
+  displayName: "Tr",
   componentId: "sc-1cvwks4-6"
-})(["text-align:", ";padding:10px 20px;border-bottom:1px solid #d6d6d6;font-size:13px;"], function (props) {
+})(["font-family:'Roboto',sans-serif;text-align:left;position:", ";border-bottom:", ";"], function (props) {
+  return props.fixed && 'fixed';
+}, function (props) {
+  return !props.fixed && '1px solid #d6d6d6';
+});
+var Th = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.th.withConfig({
+  displayName: "Th",
+  componentId: "sc-1cvwks4-7"
+})(["text-align:", ";padding:10px 20px;font-size:13px;"], function (props) {
   return props.left ? 'left' : 'right';
 });
+var SelectStyles = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
+  displayName: "SelectStyles",
+  componentId: "sc-1cvwks4-8"
+})([".Select-control{width:200px;}"]); //
+// <Dropdown>
+//   { this.state[`matches${ i }`].map( m =>
+//     <div className="match">
+//       <p className="symbol">{ m['1. symbol']}</p>
+//       <p className="company-name">{ m['2. name'] }</p>
+//     </div>
+//   )}
+// </Dropdown>
+
+var Dropdown = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
+  displayName: "Dropdown",
+  componentId: "sc-1cvwks4-9"
+})(["position:absolute;background:#fff;width:230px;padding:15px 0;border-radius:4px;.match{transition:all 0.2s ease-in-out;font-size:13px;padding:10px 15px;border-bottom:1px solid #d6d6d6;display:flex;justify-content:space-between;&:last-child{border-bottom:0;}&:hover{background:#d6d6d6;cursor:pointer;}}.symbol{font-weight:500;}.company-name{max-width:150px;text-align:right;line-height:1.3;color:#767676;}"]);
+var DropdownContainer = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
+  displayName: "DropdownContainer",
+  componentId: "sc-1cvwks4-10"
+})(["position:relative;.input{font-size:13px;}"]);
 
 var Index =
 /*#__PURE__*/
@@ -506,56 +539,89 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "calculateDebtToEquity", function (stock) {
-      var shareholderEquity = stock.financials.financials[0].shareholderEquity;
-      var totalDebt = stock.financials.financials[0].totalDebt;
-      var debtToEquity = (totalDebt / shareholderEquity).toFixed(2);
-      return debtToEquity;
+      if (stock.financials.financials) {
+        var shareholderEquity = stock.financials.financials[0].shareholderEquity;
+        var totalDebt = stock.financials.financials[0].totalDebt;
+        var debtToEquity = (totalDebt / shareholderEquity).toFixed(2);
+        return "".concat(debtToEquity, "%");
+      } else {
+        return 'N/A';
+      }
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "calculateAssetTurnover", function (stock) {
-      var totalAssetsThisQuarter = stock.financials.financials[0].totalAssets;
-      var totalAssetsLastQuarter = stock.financials.financials[1].totalAssets;
-      var averageTotalAssets = (totalAssetsThisQuarter + totalAssetsLastQuarter) / 2;
-      var assetTurnover = stock.financials.financials[0].totalRevenue / averageTotalAssets;
-      return assetTurnover.toFixed(2);
+      if (stock.financials.financials) {
+        var totalAssetsThisQuarter = stock.financials.financials[0].totalAssets;
+        var totalAssetsLastQuarter = stock.financials.financials[1].totalAssets;
+        var averageTotalAssets = (totalAssetsThisQuarter + totalAssetsLastQuarter) / 2;
+        var assetTurnover = stock.financials.financials[0].totalRevenue / averageTotalAssets;
+        return "".concat(assetTurnover.toFixed(2), "%");
+      } else {
+        return 'N/A';
+      }
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "calculatePayoutRatio", function (stock) {
-      var EPS = stock.earnings.earnings.reduce(function (accumulator, currentValue) {
-        return accumulator + currentValue.actualEPS;
-      }, 0);
-      var dividendRate = stock.stats.dividendRate;
-      var payoutRatio = Math.floor(dividendRate / EPS * 100 * 100) / 100;
-      return payoutRatio;
+      if (stock.earnings.earnings) {
+        var EPS = stock.earnings.earnings && stock.earnings.earnings.reduce(function (accumulator, currentValue) {
+          return accumulator + currentValue.actualEPS;
+        }, 0);
+        var dividendRate = stock.stats.dividendRate;
+        var payoutRatio = Math.floor(dividendRate / EPS * 100 * 100) / 100;
+        return "".concat(payoutRatio, "%");
+      } else {
+        return 'N/A';
+      }
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "setSymbol", function (index, event) {
-      _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var text, symbolList;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                text = event.target.value;
-                symbolList = _toConsumableArray(_this.state.symbolList);
-                symbolList[index] = text;
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "setSymbol", function (index, e, clickedItem) {
+      var selected;
 
-                _this.setState({
-                  symbolList: symbolList
-                }); // const res = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${ text }&apikey=KT28GNBJ2ECP4SJ1`)
-                // const data = await res.json()
-                //console.log(data, 'the data from search')
+      if (clickedItem === "input") {
+        selected = e.target.value.toUpperCase();
+        setTimeout(function () {
+          _asyncToGenerator(
+          /*#__PURE__*/
+          _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+            var res, data;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default()("https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=".concat(selected, "&apikey=KT28GNBJ2ECP4SJ1"));
 
+                  case 2:
+                    res = _context.sent;
+                    _context.next = 5;
+                    return res.json();
 
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }))();
+                  case 5:
+                    data = _context.sent;
+
+                    _this.setState(_defineProperty({}, "matches".concat(index), data['bestMatches']));
+
+                  case 7:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee, this);
+          }))();
+        }, 500);
+      } else {
+        selected = e;
+
+        _this.setState(_defineProperty({}, "matches".concat(index), null));
+      }
+
+      var symbolList = _toConsumableArray(_this.state.symbolList);
+
+      symbolList[index] = selected;
+
+      _this.setState({
+        symbolList: symbolList
+      });
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "submit", function () {
@@ -570,7 +636,7 @@ function (_Component) {
                 symbolList = _this.state.symbolList;
 
                 if (!(symbolList.length > 0)) {
-                  _context2.next = 16;
+                  _context2.next = 15;
                   break;
                 }
 
@@ -593,7 +659,6 @@ function (_Component) {
 
               case 10:
                 data = _context2.sent;
-                console.log(data, 'the data in submit');
                 stocks = [];
                 array = Object.keys(data).map(function (d) {
                   return stocks.push(data[d]);
@@ -605,7 +670,7 @@ function (_Component) {
 
                 _this.buildChartData(stocks);
 
-              case 16:
+              case 15:
               case "end":
                 return _context2.stop();
             }
@@ -615,27 +680,68 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderInputFields", function () {
+      var symbolList = _this.state.symbolList;
       return Array.from(new Array(4), function (val, i) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+          left: true,
           key: i,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 278
+            lineNumber: 366
+          },
+          __self: this
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DropdownContainer, {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 367
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+          className: "input",
           type: "text",
           placeholder: "Enter stock symbol",
-          value: _this.state.symbolList[i] || '',
+          value: symbolList[i] || '',
           onChange: function onChange(e) {
-            return _this.setSymbol(i, e);
+            return _this.setSymbol(i, e, 'input');
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 279
+            lineNumber: 368
           },
           __self: this
-        }));
+        }), _this.state["matches".concat(i)] && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Dropdown, {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 370
+          },
+          __self: this
+        }, _this.state["matches".concat(i)].map(function (m) {
+          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "match",
+            onClick: function onClick(e) {
+              return _this.setSymbol(i, m['1. symbol'], 'dropdown');
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 372
+            },
+            __self: this
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+            className: "symbol",
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 373
+            },
+            __self: this
+          }, m['1. symbol']), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+            className: "company-name",
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 374
+            },
+            __self: this
+          }, m['2. name']));
+        }))));
       });
     });
 
@@ -656,7 +762,6 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "getCalculatedValues", function (functionName) {
       var stocks = _this.state.stocks;
-      console.log(functionName, 'function name');
 
       if (stocks.length) {
         switch (functionName) {
@@ -666,10 +771,10 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 311
+                  lineNumber: 410
                 },
                 __self: this
-              }, _this.calculatePayoutRatio(s), "%");
+              }, _this.calculatePayoutRatio(s));
             });
             break;
 
@@ -679,10 +784,10 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 316
+                  lineNumber: 415
                 },
                 __self: this
-              }, _this.calculateDebtToEquity(s), "% ");
+              }, _this.calculateDebtToEquity(s));
             });
             break;
 
@@ -692,10 +797,10 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 321
+                  lineNumber: 420
                 },
                 __self: this
-              }, _this.calculateAssetTurnover(s), "%");
+              }, _this.calculateAssetTurnover(s));
             });
             break;
 
@@ -707,7 +812,7 @@ function (_Component) {
           colSpan: "4",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 329
+            lineNumber: 428
           },
           __self: this
         });
@@ -719,21 +824,21 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 337
+          lineNumber: 436
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 338
+          lineNumber: 437
         },
         __self: this
       }, title), _this.getCalculatedValues(functionName), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 340
+          lineNumber: 439
         },
         __self: this
       }));
@@ -744,14 +849,14 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 349
+          lineNumber: 448
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 350
+          lineNumber: 449
         },
         __self: this
       }, title), stocks.length ? stocks.map(function (s) {
@@ -759,7 +864,7 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 353
+            lineNumber: 452
           },
           __self: this
         }, isDollar && s[category][subcategory] !== null && '$', _this.getValue(s[category][subcategory]), isPercent && s[category][subcategory] !== null && '%');
@@ -767,14 +872,14 @@ function (_Component) {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 359
+          lineNumber: 458
         },
         __self: this
       }), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 361
+          lineNumber: 460
         },
         __self: this
       }));
@@ -823,44 +928,44 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OuterContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 394
+          lineNumber: 493
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_meta__WEBPACK_IMPORTED_MODULE_5__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 395
+          lineNumber: 494
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(InnerContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 396
+          lineNumber: 495
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Table, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 397
+          lineNumber: 496
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 398
+          lineNumber: 497
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 399
+          lineNumber: 498
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 400
+          lineNumber: 499
         },
         __self: this
       }, " Stock Symbol "), this.renderInputFields(), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
@@ -869,13 +974,13 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 402
+          lineNumber: 501
         },
         __self: this
       }, " Go ")), this.renderTableRow('Name', 'company', 'companyName', false, false), this.renderTableRow('Sector', 'company', 'sector', false, false), this.renderTableRow('Industry', 'company', 'industry', false, false), this.renderTableRow('Latest Price', 'quote', 'latestPrice', true, false), this.renderTableRow('Price to Earning (P/E)', 'quote', 'peRatio', false, true), this.renderTableRow('Price to Sales (P/S)', 'stats', 'priceToSales', false, true), this.renderTableRow('Price to Book (P/B)', 'stats', 'priceToBook', false, true), this.renderTableRow('Dividend Yield', 'stats', 'dividendYield', false, true), this.renderTableRow('Dividend Rate', 'stats', 'dividendRate', true, false), this.renderCalculatedRow('Dividend Payout Ratio', 'calculatePayoutRatio'), this.renderTableRow('Return On Assets', 'stats', 'returnOnAssets', false, true), this.renderTableRow('Return On Equity', 'stats', 'returnOnEquity', false, true), this.renderTableRow('Profit Margin', 'stats', 'profitMargin', false, true), this.renderCalculatedRow('Debt to Equity', 'calculateDebtToEquity'), this.renderCalculatedRow('Asset Turnover (Current Quarter)', 'calculateAssetTurnover'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 422
+          lineNumber: 521
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__["Line"], {
@@ -884,7 +989,7 @@ function (_Component) {
         redraw: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 423
+          lineNumber: 522
         },
         __self: this
       }))));
@@ -984,6 +1089,17 @@ module.exports = require("react");
 /***/ (function(module, exports) {
 
 module.exports = require("react-chartjs-2");
+
+/***/ }),
+
+/***/ "react-select":
+/*!*******************************!*\
+  !*** external "react-select" ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("react-select");
 
 /***/ }),
 

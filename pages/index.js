@@ -6,6 +6,9 @@ import Meta from '../components/meta'
 const url = 'https://www.gurufocus.com/term/peg/AAPL/PEG-Ratio'
 var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 import { Line } from 'react-chartjs-2'
+import Select from 'react-select'
+// https://codepen.io/anon/pen/gQBGdR FIXED HEADER
+
 
 const chartData = {
   labels: [],
@@ -142,6 +145,10 @@ const HeroTitle = styled.h1`
   text-shadow: -3px 0px 11px rgba(0,0,0,0.7);
 `
 
+const Table = styled.table`
+
+`
+
 const Tbody = styled.tbody`
 border-bottom: 1px solid gray;
 `
@@ -160,24 +167,81 @@ const OuterContainer = styled.div`
 
 const InnerContainer = styled.div`
   padding: 20px;
+  width: 100%;
+  max-width: 1000px;
 `
 
 const Tr = styled.tr`
   font-family: 'Roboto', sans-serif;
   text-align: left;
+  position: ${ props => props.fixed && 'fixed' };
+  border-bottom:  ${ props => !props.fixed && '1px solid #d6d6d6'};
 `
 
 const Th = styled.th`
   text-align: ${ props => props.left ? 'left' : 'right'};
   padding: 10px 20px;
-  border-bottom: 1px solid #d6d6d6;
   font-size: 13px;
+`
+
+const SelectStyles = styled.div`
+  .Select-control {
+    width: 200px;
+  }
+`
+//
+// <Dropdown>
+//   { this.state[`matches${ i }`].map( m =>
+//     <div className="match">
+//       <p className="symbol">{ m['1. symbol']}</p>
+//       <p className="company-name">{ m['2. name'] }</p>
+//     </div>
+//   )}
+// </Dropdown>
+
+const Dropdown = styled.div`
+  position: absolute;
+  background: #fff;
+  width: 230px;
+  padding: 15px 0;
+  border-radius: 4px;
+  .match {
+    transition: all 0.2s ease-in-out;
+    font-size: 13px;
+    padding: 10px 15px;
+    border-bottom: 1px solid #d6d6d6;
+    display: flex;
+    justify-content: space-between;
+    &:last-child {
+      border-bottom: 0;
+    }
+    &:hover {
+      background: #d6d6d6;
+      cursor: pointer;
+    }
+  }
+  .symbol {
+    font-weight: 500;
+  }
+  .company-name {
+    max-width: 150px;
+    text-align: right;
+    line-height: 1.3;
+    color: #767676;
+  }
+`
+
+const DropdownContainer = styled.div`
+  position: relative;
+  .input {
+    font-size: 13px;
+  }
 `
 
 class Index extends Component {
   state = {
     stocks: {},
-    symbolList: []
+    symbolList: [],
   }
 
   componentWillMount() {
@@ -216,41 +280,64 @@ class Index extends Component {
   }
 
   calculateDebtToEquity = stock => {
-    const shareholderEquity = stock.financials.financials[0].shareholderEquity
-    const totalDebt = stock.financials.financials[0].totalDebt
-    const debtToEquity = ( totalDebt / shareholderEquity ).toFixed( 2 )
-    return debtToEquity
+    if ( stock.financials.financials ) {
+      const shareholderEquity = stock.financials.financials[0].shareholderEquity
+      const totalDebt = stock.financials.financials[0].totalDebt
+      const debtToEquity = ( totalDebt / shareholderEquity ).toFixed( 2 )
+      return `${ debtToEquity }%`
+    }
+    else {
+      return 'N/A'
+    }
   }
 
   calculateAssetTurnover = stock => {
-    const totalAssetsThisQuarter = stock.financials.financials[0].totalAssets
-    const totalAssetsLastQuarter = stock.financials.financials[1].totalAssets
+    if ( stock.financials.financials ) {
+      const totalAssetsThisQuarter = stock.financials.financials[0].totalAssets
+      const totalAssetsLastQuarter = stock.financials.financials[1].totalAssets
 
-    const averageTotalAssets = ( totalAssetsThisQuarter + totalAssetsLastQuarter ) / 2
-    const assetTurnover = stock.financials.financials[0].totalRevenue / averageTotalAssets
-    return assetTurnover.toFixed( 2 )
+      const averageTotalAssets = ( totalAssetsThisQuarter + totalAssetsLastQuarter ) / 2
+      const assetTurnover = stock.financials.financials[0].totalRevenue / averageTotalAssets
+      return `${ assetTurnover.toFixed( 2 ) }%`
+    }
+    else {
+      return 'N/A'
+    }
   }
 
   calculatePayoutRatio = stock => {
-    const EPS = stock.earnings.earnings.reduce(( accumulator, currentValue ) => accumulator + currentValue.actualEPS, 0 )
-    const dividendRate = stock.stats.dividendRate
+    if ( stock.earnings.earnings ) {
+      const EPS = stock.earnings.earnings && stock.earnings.earnings.reduce(( accumulator, currentValue ) => accumulator + currentValue.actualEPS, 0 )
+      const dividendRate = stock.stats.dividendRate
 
-    const payoutRatio = Math.floor( ( ( dividendRate / EPS ) * 100 ) * 100 ) / 100
+      const payoutRatio = Math.floor( ( ( dividendRate / EPS ) * 100 ) * 100 ) / 100
 
-    return payoutRatio
+      return `${ payoutRatio }%`
+    }
+    else {
+      return 'N/A'
+    }
   }
 
-  setSymbol = ( index, event ) => {
-    ( async () => {
-      const text = event.target.value
-
-      const symbolList = [...this.state.symbolList]
-      symbolList[index] = text
-      this.setState({ symbolList })
-      // const res = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${ text }&apikey=KT28GNBJ2ECP4SJ1`)
-      // const data = await res.json()
-      //console.log(data, 'the data from search')
-    })()
+  setSymbol = ( index, e, clickedItem ) => {
+    let selected
+    if ( clickedItem === "input" ) {
+      selected = e.target.value.toUpperCase()
+      setTimeout( () => {
+        ( async () => {
+          const res = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${ selected }&apikey=KT28GNBJ2ECP4SJ1`)
+          const data = await res.json()
+          this.setState({ [`matches${index}`]: data['bestMatches'] })
+        })()
+      }, 500)
+    }
+    else {
+      selected = e
+      this.setState({ [`matches${index}`]: null })
+    }
+    const symbolList = [...this.state.symbolList]
+    symbolList[index] = selected
+    this.setState({ symbolList })
   }
 
   submit = () => {
@@ -263,7 +350,6 @@ class Index extends Component {
 
         const res = await fetch(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${ filteredList.join(",")}&types=quote,stats,financials,company,earnings,chart&range=3m`)
         const data = await res.json()
-        console.log(data, 'the data in submit')
         const stocks = []
         const array = Object.keys( data ).map( d => stocks.push( data[d] ))
         this.setState({ stocks })
@@ -273,10 +359,24 @@ class Index extends Component {
   }
 
   renderInputFields = () => {
-    return Array.from(new Array( 4 ), (val, i ) => {
+    const { symbolList } = this.state
+
+    return Array.from( new Array( 4 ), (val, i ) => {
       return (
-        <Th key={ i }>
-          <input type="text" placeholder="Enter stock symbol" value={ this.state.symbolList[i] || '' } onChange={ e => this.setSymbol( i, e )}/>
+        <Th left={ true } key={ i }>
+          <DropdownContainer>
+            <input className="input" type="text" placeholder="Enter stock symbol" value={ symbolList[i] || '' } onChange={ e => this.setSymbol( i, e, 'input' )}/>
+            { this.state[`matches${ i }`] &&
+              <Dropdown>
+                { this.state[`matches${ i }`].map( m =>
+                  <div className="match" onClick={ e => this.setSymbol( i, m['1. symbol'], 'dropdown' )}>
+                    <p className="symbol">{ m['1. symbol']}</p>
+                    <p className="company-name">{ m['2. name'] }</p>
+                  </div>
+                )}
+              </Dropdown>
+            }
+          </DropdownContainer>
         </Th>
       )
     })
@@ -303,22 +403,21 @@ class Index extends Component {
 
   getCalculatedValues = functionName => {
     const { stocks } = this.state
-    console.log(functionName, 'function name')
     if ( stocks.length ) {
       switch ( functionName ) {
         case 'calculatePayoutRatio':
           return (
-            stocks.map( s => <Th key={ s.company.companyName }>{ this.calculatePayoutRatio( s ) }%</Th> )
+            stocks.map( s => <Th key={ s.company.companyName }>{ this.calculatePayoutRatio( s ) }</Th> )
           )
           break
         case 'calculateDebtToEquity':
           return (
-            stocks.map( s => <Th key={ s.company.companyName }>{ this.calculateDebtToEquity( s )}% </Th> )
+            stocks.map( s => <Th key={ s.company.companyName }>{ this.calculateDebtToEquity( s )}</Th> )
           )
           break
         case 'calculateAssetTurnover':
           return (
-            stocks.map( s => <Th key={ s.company.companyName }>{ this.calculateAssetTurnover( s ) }%</Th> )
+            stocks.map( s => <Th key={ s.company.companyName }>{ this.calculateAssetTurnover( s )}</Th> )
           )
           break
         default:
@@ -394,7 +493,7 @@ class Index extends Component {
       <OuterContainer>
         <Meta />
         <InnerContainer>
-          <table>
+          <Table>
             <tbody>
               <Tr>
                 <Th left={ true }> Stock Symbol </Th>
@@ -418,7 +517,7 @@ class Index extends Component {
               { this.renderCalculatedRow( 'Debt to Equity', 'calculateDebtToEquity' )}
               { this.renderCalculatedRow( 'Asset Turnover (Current Quarter)', 'calculateAssetTurnover' )}
             </tbody>
-          </table>
+          </Table>
           <ChartContainer>
             <Line data={ chartData } options={ chartOptions } redraw={ true }/>
           </ChartContainer>
