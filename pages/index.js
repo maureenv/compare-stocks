@@ -175,6 +175,7 @@ class Index extends Component {
   state = {
     stocks: {},
     symbolList: [],
+    chartRange: '1M'
   }
 
   componentWillMount() {
@@ -201,13 +202,18 @@ class Index extends Component {
   }
 
   buildChartData = stocks => {
+    const { chartRange } = this.state
     chartData.datasets = []
     const labels = []
-    stocks[0].chart.map( c => labels.push( c.date ))
+    if ( chartRange === '1D') {
+      stocks[0].chart.map( c => labels.push( c.minute ))
+    } else {
+      stocks[0].chart.map( c => labels.push( c.date ))
+    }
     chartData.labels = labels
     stocks.map(( s, i ) => {
       const data = []
-      s.chart.map( c => data.push( c.close ))
+      s.chart.map( c => data.push( c.close && c.close.toFixed(2) ))
       chartData.datasets.push({
          label: s.company.companyName,
          fill: false,
@@ -215,21 +221,22 @@ class Index extends Component {
          backgroundColor: chartColors[i],
          borderColor: chartColors[i],
          borderCapStyle: 'butt',
-         borderDash: [],
-         borderDashOffset: 0.0,
-         borderJoinStyle: 'miter',
+         borderJoinStyle: 'bevel',
          pointBorderColor: chartColors[i],
          pointBackgroundColor: '#fff',
-         pointBorderWidth: 1,
-         pointHoverRadius: 5,
+         pointBorderWidth: 0.5,
+         borderWidth: 2,
+         pointHoverRadius: 3,
          pointHoverBackgroundColor: chartColors[i],
          pointHoverBorderColor: chartColors[i],
          pointHoverBorderWidth: 2,
-         pointRadius: 1,
-         pointHitRadius: 10,
+         pointRadius: 0,
+         pointHitRadius: 5,
          data: data,
       })
     })
+
+    chartOptions.tooltips.callbacks.label = tooltipItem => '$' + tooltipItem.yLabel.toLocaleString(2)
 
     this.setState({ chartData, chartOptions })
 
@@ -302,9 +309,7 @@ class Index extends Component {
   }
 
   clearMatches = i => {
-    setTimeout( () => {
-      this.setState({ [`matches${ i }`]: null })
-    }, 100 )
+    this.setState({ [`matches${ i }`]: null })
   }
 
   submit = () => {
@@ -315,16 +320,39 @@ class Index extends Component {
         const filteredList = symbolList.filter( i => !removeFromList.includes( i ))
         this.setState({ symbolList: filteredList })
 
-        const res = await fetch(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${ filteredList.join(",")}&types=quote,stats,financials,company,earnings,chart&range=3m`)
+        const res = await fetch(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${ filteredList.join(",")}&types=quote,stats,financials,company,earnings,chart&range=1m`)
         const data = await res.json()
         const stocks = []
         const array = Object.keys( data ).map( d => stocks.push( data[d] ))
         if ( stocks.length > 0 ) {
-          // const chartItemVisible = []
-          // stocks.map( ( s, i ) => chartItemVisible.push( false ) )
           this.setState({ stocks, line0: true, line1: true, line2: true, line3: true })
           this.buildChartData( stocks )
         }
+      }
+    })()
+  }
+
+  setChartRange = range => {
+    ( async () => {
+      const { symbolList } = this.state
+      if ( symbolList.length > 0 ) {
+        const removeFromList = [undefined, null]
+        const filteredList = symbolList.filter( i => !removeFromList.includes( i ))
+        this.setState({ symbolList: filteredList, chartRange: range })
+        const res = await fetch(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${ filteredList.join(",")}&types=chart&range=${ range }`)
+        const data = await res.json()
+        const dataArray = []
+
+        for ( const [ key, value ] of Object.entries( data )) {
+          dataArray.push({ [key]: value })
+        }
+
+        const stocks = [...this.state.stocks]
+        stocks.map( ( s, i ) => {
+          const chartData = dataArray.find( d => Object.keys( d )[0] === s.company.symbol )
+          s.chart = chartData[s.company.symbol].chart
+        })
+        this.setState({ stocks }, () => this.buildChartData( stocks ))
       }
     })()
   }
@@ -354,10 +382,6 @@ class Index extends Component {
   }
 
   toggleLine = i => {
-    //    console.log( this.state[`line${ i }`], 'the toggled state')
-    // this.setState( prevState => ({ [`line${ i }`]: !prevState[`line${ i }`] }) )
-    //
-    // console.log( this.state[`line${ i }`], 'the toggled state')
     this.refs.chart.chartInstance.getDatasetMeta( i ).hidden = this.state[`line${ i }`]
     this.setState( prevState => ({ [`line${ i }`]: !prevState[`line${ i }`] }) )
     this.refs.chart.chartInstance.update()
@@ -429,6 +453,16 @@ class Index extends Component {
         { this.getCalculatedValues( functionName ) }
         { stocks.length < 4 && <Th colSpan={ 4 - stocks.length }/> }
       </Tr>
+    )
+  }
+
+  renderChartOptions = () => {
+    const options = ['1D', '1M', '1Y', '5Y' ]
+    return options.map( o =>
+      <div>
+        <input name="chart" onClick={ () => this.setChartRange( o ) } id={ o } type="radio" key={ o } value={ o } checked={ o === this.state.chartRange }/>
+        <label htmlFor={ o }>{ o }</label>
+      </div>
     )
   }
 
@@ -510,6 +544,7 @@ class Index extends Component {
             </tbody>
           </Table>
           <ChartContainer>
+            <div style={{ display: 'flex'}}>{ this.renderChartOptions() }</div>
             <ChartLegend>{ this.renderLegend() }</ChartLegend>
             <Line ref="chart" data={ chartData } options={ chartOptions } redraw={ false }/>
           </ChartContainer>

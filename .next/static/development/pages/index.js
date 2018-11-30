@@ -81452,6 +81452,14 @@ var _jsxFileName = "/Users/maureenvogel/webprojects/stocks/pages/index.js";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -81615,20 +81623,30 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
       stocks: {},
-      symbolList: []
+      symbolList: [],
+      chartRange: '1M'
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "buildChartData", function (stocks) {
+      var chartRange = _this.state.chartRange;
       chartData.datasets = [];
       var labels = [];
-      stocks[0].chart.map(function (c) {
-        return labels.push(c.date);
-      });
+
+      if (chartRange === '1D') {
+        stocks[0].chart.map(function (c) {
+          return labels.push(c.minute);
+        });
+      } else {
+        stocks[0].chart.map(function (c) {
+          return labels.push(c.date);
+        });
+      }
+
       chartData.labels = labels;
       stocks.map(function (s, i) {
         var data = [];
         s.chart.map(function (c) {
-          return data.push(c.close);
+          return data.push(c.close && c.close.toFixed(2));
         });
         chartData.datasets.push({
           label: s.company.companyName,
@@ -81637,21 +81655,24 @@ function (_Component) {
           backgroundColor: chartColors[i],
           borderColor: chartColors[i],
           borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
+          borderJoinStyle: 'bevel',
           pointBorderColor: chartColors[i],
           pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
+          pointBorderWidth: 0.5,
+          borderWidth: 2,
+          pointHoverRadius: 3,
           pointHoverBackgroundColor: chartColors[i],
           pointHoverBorderColor: chartColors[i],
           pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
+          pointRadius: 0,
+          pointHitRadius: 5,
           data: data
         });
       });
+
+      chartOptions.tooltips.callbacks.label = function (tooltipItem) {
+        return '$' + tooltipItem.yLabel.toLocaleString(2);
+      };
 
       _this.setState({
         chartData: chartData,
@@ -81750,9 +81771,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "clearMatches", function (i) {
-      setTimeout(function () {
-        _this.setState(_defineProperty({}, "matches".concat(i), null));
-      }, 100);
+      _this.setState(_defineProperty({}, "matches".concat(i), null));
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "submit", function () {
@@ -81781,7 +81800,7 @@ function (_Component) {
                 });
 
                 _context2.next = 7;
-                return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default()("https://api.iextrading.com/1.0/stock/market/batch?symbols=".concat(filteredList.join(","), "&types=quote,stats,financials,company,earnings,chart&range=3m"));
+                return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default()("https://api.iextrading.com/1.0/stock/market/batch?symbols=".concat(filteredList.join(","), "&types=quote,stats,financials,company,earnings,chart&range=1m"));
 
               case 7:
                 res = _context2.sent;
@@ -81796,8 +81815,6 @@ function (_Component) {
                 });
 
                 if (stocks.length > 0) {
-                  // const chartItemVisible = []
-                  // stocks.map( ( s, i ) => chartItemVisible.push( false ) )
                   _this.setState({
                     stocks: stocks,
                     line0: true,
@@ -81818,6 +81835,74 @@ function (_Component) {
       }))();
     });
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "setChartRange", function (range) {
+      _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var symbolList, removeFromList, filteredList, res, data, dataArray, _arr, _i, _arr$_i, key, value, stocks;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                symbolList = _this.state.symbolList;
+
+                if (!(symbolList.length > 0)) {
+                  _context3.next = 17;
+                  break;
+                }
+
+                removeFromList = [undefined, null];
+                filteredList = symbolList.filter(function (i) {
+                  return !removeFromList.includes(i);
+                });
+
+                _this.setState({
+                  symbolList: filteredList,
+                  chartRange: range
+                });
+
+                _context3.next = 7;
+                return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_3___default()("https://api.iextrading.com/1.0/stock/market/batch?symbols=".concat(filteredList.join(","), "&types=chart&range=").concat(range));
+
+              case 7:
+                res = _context3.sent;
+                _context3.next = 10;
+                return res.json();
+
+              case 10:
+                data = _context3.sent;
+                dataArray = [];
+                _arr = Object.entries(data);
+
+                for (_i = 0; _i < _arr.length; _i++) {
+                  _arr$_i = _slicedToArray(_arr[_i], 2), key = _arr$_i[0], value = _arr$_i[1];
+                  dataArray.push(_defineProperty({}, key, value));
+                }
+
+                stocks = _toConsumableArray(_this.state.stocks);
+                stocks.map(function (s, i) {
+                  var chartData = dataArray.find(function (d) {
+                    return Object.keys(d)[0] === s.company.symbol;
+                  });
+                  s.chart = chartData[s.company.symbol].chart;
+                });
+
+                _this.setState({
+                  stocks: stocks
+                }, function () {
+                  return _this.buildChartData(stocks);
+                });
+
+              case 17:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }))();
+    });
+
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderInputFields", function () {
       var symbolList = _this.state.symbolList;
       return Array.from(new Array(4), function (val, i) {
@@ -81826,13 +81911,13 @@ function (_Component) {
           key: i,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 337
+            lineNumber: 365
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DropdownContainer, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 338
+            lineNumber: 366
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
@@ -81848,13 +81933,13 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 339
+            lineNumber: 367
           },
           __self: this
         }), _this.state["matches".concat(i)] && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Dropdown, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 341
+            lineNumber: 369
           },
           __self: this
         }, _this.state["matches".concat(i)].map(function (m) {
@@ -81865,21 +81950,21 @@ function (_Component) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 343
+              lineNumber: 371
             },
             __self: this
           }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
             className: "symbol",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 344
+              lineNumber: 372
             },
             __self: this
           }, m['1. symbol']), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
             className: "company-name",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 345
+              lineNumber: 373
             },
             __self: this
           }, m['2. name']));
@@ -81888,10 +81973,6 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "toggleLine", function (i) {
-      //    console.log( this.state[`line${ i }`], 'the toggled state')
-      // this.setState( prevState => ({ [`line${ i }`]: !prevState[`line${ i }`] }) )
-      //
-      // console.log( this.state[`line${ i }`], 'the toggled state')
       _this.refs.chart.chartInstance.getDatasetMeta(i).hidden = _this.state["line".concat(i)];
 
       _this.setState(function (prevState) {
@@ -81910,20 +81991,20 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 369
+            lineNumber: 393
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Bullet, {
           color: chartColors[i],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 370
+            lineNumber: 394
           },
           __self: this
         }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(LegendName, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 371
+            lineNumber: 395
           },
           __self: this
         }, s.company.companyName));
@@ -81956,7 +82037,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 401
+                  lineNumber: 425
                 },
                 __self: this
               }, _this.calculatePayoutRatio(s));
@@ -81969,7 +82050,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 406
+                  lineNumber: 430
                 },
                 __self: this
               }, _this.calculateDebtToEquity(s));
@@ -81982,7 +82063,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 411
+                  lineNumber: 435
                 },
                 __self: this
               }, _this.calculateAssetTurnover(s));
@@ -81997,7 +82078,7 @@ function (_Component) {
           colSpan: "4",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 419
+            lineNumber: 443
           },
           __self: this
         });
@@ -82009,24 +82090,59 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 427
+          lineNumber: 451
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 428
+          lineNumber: 452
         },
         __self: this
       }, title), _this.getCalculatedValues(functionName), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 430
+          lineNumber: 454
         },
         __self: this
       }));
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderChartOptions", function () {
+      var options = ['1D', '1M', '1Y', '5Y'];
+      return options.map(function (o) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 462
+          },
+          __self: this
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+          name: "chart",
+          onClick: function onClick() {
+            return _this.setChartRange(o);
+          },
+          id: o,
+          type: "radio",
+          key: o,
+          value: o,
+          checked: o === _this.state.chartRange,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 463
+          },
+          __self: this
+        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+          htmlFor: o,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 464
+          },
+          __self: this
+        }, o));
+      });
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderTableRow", function (title, category, subcategory, isDollar, isPercent) {
@@ -82034,14 +82150,14 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 439
+          lineNumber: 473
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 440
+          lineNumber: 474
         },
         __self: this
       }, title), stocks.length ? stocks.map(function (s) {
@@ -82049,7 +82165,7 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 443
+            lineNumber: 477
           },
           __self: this
         }, isDollar && s[category][subcategory] !== null && '$', _this.getValue(s[category][subcategory]), isPercent && s[category][subcategory] !== null && '%');
@@ -82057,14 +82173,14 @@ function (_Component) {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 449
+          lineNumber: 483
         },
         __self: this
       }), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 451
+          lineNumber: 485
         },
         __self: this
       }));
@@ -82113,44 +82229,44 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OuterContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 484
+          lineNumber: 518
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_meta__WEBPACK_IMPORTED_MODULE_5__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 485
+          lineNumber: 519
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(InnerContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 486
+          lineNumber: 520
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Table, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 487
+          lineNumber: 521
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 488
+          lineNumber: 522
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 489
+          lineNumber: 523
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 490
+          lineNumber: 524
         },
         __self: this
       }, " Stock Symbol "), this.renderInputFields(), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
@@ -82159,19 +82275,28 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 492
+          lineNumber: 526
         },
         __self: this
       }, " Go ")), this.renderTableRow('Name', 'company', 'companyName', false, false), this.renderTableRow('Sector', 'company', 'sector', false, false), this.renderTableRow('Industry', 'company', 'industry', false, false), this.renderTableRow('Latest Price', 'quote', 'latestPrice', true, false), this.renderTableRow('Price to Earning (P/E)', 'quote', 'peRatio', false, true), this.renderTableRow('Price to Sales (P/S)', 'stats', 'priceToSales', false, true), this.renderTableRow('Price to Book (P/B)', 'stats', 'priceToBook', false, true), this.renderTableRow('Dividend Yield', 'stats', 'dividendYield', false, true), this.renderTableRow('Dividend Rate', 'stats', 'dividendRate', true, false), this.renderCalculatedRow('Dividend Payout Ratio', 'calculatePayoutRatio'), this.renderTableRow('Return On Assets', 'stats', 'returnOnAssets', false, true), this.renderTableRow('Return On Equity', 'stats', 'returnOnEquity', false, true), this.renderTableRow('Profit Margin', 'stats', 'profitMargin', false, true), this.renderCalculatedRow('Debt to Equity', 'calculateDebtToEquity'), this.renderCalculatedRow('Asset Turnover (Current Quarter)', 'calculateAssetTurnover'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 512
+          lineNumber: 546
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartLegend, {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        style: {
+          display: 'flex'
+        },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 513
+          lineNumber: 547
+        },
+        __self: this
+      }, this.renderChartOptions()), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartLegend, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 548
         },
         __self: this
       }, this.renderLegend()), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__["Line"], {
@@ -82181,7 +82306,7 @@ function (_Component) {
         redraw: false,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 514
+          lineNumber: 549
         },
         __self: this
       }))));
