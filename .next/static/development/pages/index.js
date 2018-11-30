@@ -81618,45 +81618,49 @@ function (_Component) {
       symbolList: []
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "buildChartData", function (stocks) {
-      chartData.datasets = [];
-      var labels = [];
-      stocks[0].chart.map(function (c) {
-        return labels.push(c.date);
-      });
-      chartData.labels = labels;
-      stocks.map(function (s, i) {
-        var data = [];
-        s.chart.map(function (c) {
-          return data.push(c.close);
-        });
-        chartData.datasets.push({
-          label: s.company.companyName,
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: chartColors[i],
-          borderColor: chartColors[i],
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: chartColors[i],
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: chartColors[i],
-          pointHoverBorderColor: chartColors[i],
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: data
-        });
-      });
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "chartData", function (canvas) {
+      var stocks = _this.state.stocks;
 
-      _this.setState({
-        chartData: chartData,
-        chartOptions: chartOptions
-      }); // if ( chartFilter === 'total' ) {
+      if (stocks.length) {
+        chartData.datasets = [];
+        var labels = [];
+        stocks[0].chart.map(function (c) {
+          return labels.push(c.date);
+        });
+        chartData.labels = labels;
+        var ctx = canvas.getContext("2d");
+        var gradient = ctx.createLinearGradient(0, 0, 0, 200);
+        gradient.addColorStop(1, 'rgba(103,255,255,0)');
+        gradient.addColorStop(0, 'rgba(141,255,103,0.5)');
+        stocks.map(function (s, i) {
+          var data = [];
+          s.chart.map(function (c) {
+            return data.push(c.close);
+          });
+          chartData.datasets.push({
+            label: s.company.companyName,
+            fill: true,
+            lineTension: 0.1,
+            backgroundColor: gradient,
+            borderColor: chartColors[i],
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: chartColors[i],
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: chartColors[i],
+            pointHoverBorderColor: chartColors[i],
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: data
+          });
+        });
+        return chartData;
+      } // if ( chartFilter === 'total' ) {
       // chartOptions.tooltips.callbacks.label = tooltipItem => '$' + tooltipItem.yLabel.toLocaleString()
       // chartOptions.scales.yAxes[0].ticks.callback = value => '$' + value.toLocaleString()
       // chartData.datasets[0].data = Object.values( chartDataArray ).map( i => i.toFixed( 2 ))
@@ -81804,9 +81808,8 @@ function (_Component) {
                     line1: true,
                     line2: true,
                     line3: true
-                  });
+                  }); //  this.buildChartData( stocks )
 
-                  _this.buildChartData(stocks);
                 }
 
               case 14:
@@ -81826,13 +81829,13 @@ function (_Component) {
           key: i,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 337
+            lineNumber: 344
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DropdownContainer, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 338
+            lineNumber: 345
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
@@ -81848,13 +81851,13 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 339
+            lineNumber: 346
           },
           __self: this
         }), _this.state["matches".concat(i)] && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Dropdown, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 341
+            lineNumber: 348
           },
           __self: this
         }, _this.state["matches".concat(i)].map(function (m) {
@@ -81865,21 +81868,21 @@ function (_Component) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 343
+              lineNumber: 350
             },
             __self: this
           }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
             className: "symbol",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 344
+              lineNumber: 351
             },
             __self: this
           }, m['1. symbol']), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
             className: "company-name",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 345
+              lineNumber: 352
             },
             __self: this
           }, m['2. name']));
@@ -81910,20 +81913,20 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 369
+            lineNumber: 376
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Bullet, {
           color: chartColors[i],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 370
+            lineNumber: 377
           },
           __self: this
         }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(LegendName, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 371
+            lineNumber: 378
           },
           __self: this
         }, s.company.companyName));
@@ -81956,7 +81959,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 401
+                  lineNumber: 408
                 },
                 __self: this
               }, _this.calculatePayoutRatio(s));
@@ -81969,7 +81972,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 406
+                  lineNumber: 413
                 },
                 __self: this
               }, _this.calculateDebtToEquity(s));
@@ -81982,7 +81985,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 411
+                  lineNumber: 418
                 },
                 __self: this
               }, _this.calculateAssetTurnover(s));
@@ -81997,7 +82000,7 @@ function (_Component) {
           colSpan: "4",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 419
+            lineNumber: 426
           },
           __self: this
         });
@@ -82009,21 +82012,21 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 427
+          lineNumber: 434
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 428
+          lineNumber: 435
         },
         __self: this
       }, title), _this.getCalculatedValues(functionName), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 430
+          lineNumber: 437
         },
         __self: this
       }));
@@ -82034,14 +82037,14 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 439
+          lineNumber: 446
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 440
+          lineNumber: 447
         },
         __self: this
       }, title), stocks.length ? stocks.map(function (s) {
@@ -82049,7 +82052,7 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 443
+            lineNumber: 450
           },
           __self: this
         }, isDollar && s[category][subcategory] !== null && '$', _this.getValue(s[category][subcategory]), isPercent && s[category][subcategory] !== null && '%');
@@ -82057,14 +82060,14 @@ function (_Component) {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 449
+          lineNumber: 456
         },
         __self: this
       }), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 451
+          lineNumber: 458
         },
         __self: this
       }));
@@ -82113,44 +82116,44 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OuterContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 484
+          lineNumber: 491
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_meta__WEBPACK_IMPORTED_MODULE_5__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 485
+          lineNumber: 492
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(InnerContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 486
+          lineNumber: 493
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Table, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 487
+          lineNumber: 494
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 488
+          lineNumber: 495
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 489
+          lineNumber: 496
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 490
+          lineNumber: 497
         },
         __self: this
       }, " Stock Symbol "), this.renderInputFields(), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
@@ -82159,29 +82162,29 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 492
+          lineNumber: 499
         },
         __self: this
       }, " Go ")), this.renderTableRow('Name', 'company', 'companyName', false, false), this.renderTableRow('Sector', 'company', 'sector', false, false), this.renderTableRow('Industry', 'company', 'industry', false, false), this.renderTableRow('Latest Price', 'quote', 'latestPrice', true, false), this.renderTableRow('Price to Earning (P/E)', 'quote', 'peRatio', false, true), this.renderTableRow('Price to Sales (P/S)', 'stats', 'priceToSales', false, true), this.renderTableRow('Price to Book (P/B)', 'stats', 'priceToBook', false, true), this.renderTableRow('Dividend Yield', 'stats', 'dividendYield', false, true), this.renderTableRow('Dividend Rate', 'stats', 'dividendRate', true, false), this.renderCalculatedRow('Dividend Payout Ratio', 'calculatePayoutRatio'), this.renderTableRow('Return On Assets', 'stats', 'returnOnAssets', false, true), this.renderTableRow('Return On Equity', 'stats', 'returnOnEquity', false, true), this.renderTableRow('Profit Margin', 'stats', 'profitMargin', false, true), this.renderCalculatedRow('Debt to Equity', 'calculateDebtToEquity'), this.renderCalculatedRow('Asset Turnover (Current Quarter)', 'calculateAssetTurnover'))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 512
+          lineNumber: 519
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartLegend, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 513
+          lineNumber: 520
         },
         __self: this
-      }, this.renderLegend()), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__["Line"], {
+      }, this.renderLegend()), stocks.length && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__["Line"], {
         ref: "chart",
-        data: chartData,
+        data: this.chartData,
         options: chartOptions,
         redraw: false,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 514
+          lineNumber: 521
         },
         __self: this
       }))));

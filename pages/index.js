@@ -200,39 +200,46 @@ class Index extends Component {
       })
   }
 
-  buildChartData = stocks => {
-    chartData.datasets = []
-    const labels = []
-    stocks[0].chart.map( c => labels.push( c.date ))
-    chartData.labels = labels
-    stocks.map(( s, i ) => {
-      const data = []
-      s.chart.map( c => data.push( c.close ))
-      chartData.datasets.push({
-         label: s.company.companyName,
-         fill: false,
-         lineTension: 0.1,
-         backgroundColor: chartColors[i],
-         borderColor: chartColors[i],
-         borderCapStyle: 'butt',
-         borderDash: [],
-         borderDashOffset: 0.0,
-         borderJoinStyle: 'miter',
-         pointBorderColor: chartColors[i],
-         pointBackgroundColor: '#fff',
-         pointBorderWidth: 1,
-         pointHoverRadius: 5,
-         pointHoverBackgroundColor: chartColors[i],
-         pointHoverBorderColor: chartColors[i],
-         pointHoverBorderWidth: 2,
-         pointRadius: 1,
-         pointHitRadius: 10,
-         data: data,
+chartData = canvas => {
+    const { stocks } = this.state
+    if ( stocks.length ) {
+      chartData.datasets = []
+      const labels = []
+      stocks[0].chart.map( c => labels.push( c.date ))
+      chartData.labels = labels
+      const ctx = canvas.getContext("2d")
+		  const gradient = ctx.createLinearGradient(0,0,0,200);
+      gradient.addColorStop(1, 'rgba(103,255,255,0)');
+      gradient.addColorStop(0, 'rgba(141,255,103,0.5)');
+
+      stocks.map(( s, i ) => {
+        const data = []
+        s.chart.map( c => data.push( c.close ))
+        chartData.datasets.push({
+           label: s.company.companyName,
+           fill: true,
+           lineTension: 0.1,
+           backgroundColor: gradient,
+           borderColor: chartColors[i],
+           borderCapStyle: 'butt',
+           borderDash: [],
+           borderDashOffset: 0.0,
+           borderJoinStyle: 'miter',
+           pointBorderColor: chartColors[i],
+           pointBackgroundColor: '#fff',
+           pointBorderWidth: 1,
+           pointHoverRadius: 5,
+           pointHoverBackgroundColor: chartColors[i],
+           pointHoverBorderColor: chartColors[i],
+           pointHoverBorderWidth: 2,
+           pointRadius: 1,
+           pointHitRadius: 10,
+           data: data,
+        })
       })
-    })
 
-    this.setState({ chartData, chartOptions })
-
+    return chartData
+}
     // if ( chartFilter === 'total' ) {
     // chartOptions.tooltips.callbacks.label = tooltipItem => '$' + tooltipItem.yLabel.toLocaleString()
     // chartOptions.scales.yAxes[0].ticks.callback = value => '$' + value.toLocaleString()
@@ -323,7 +330,7 @@ class Index extends Component {
           // const chartItemVisible = []
           // stocks.map( ( s, i ) => chartItemVisible.push( false ) )
           this.setState({ stocks, line0: true, line1: true, line2: true, line3: true })
-          this.buildChartData( stocks )
+        //  this.buildChartData( stocks )
         }
       }
     })()
@@ -511,7 +518,7 @@ class Index extends Component {
           </Table>
           <ChartContainer>
             <ChartLegend>{ this.renderLegend() }</ChartLegend>
-            <Line ref="chart" data={ chartData } options={ chartOptions } redraw={ false }/>
+            { stocks.length  && <Line ref="chart" data={ this.chartData } options={ chartOptions } redraw={ false }/> }
           </ChartContainer>
         </InnerContainer>
       </OuterContainer>
