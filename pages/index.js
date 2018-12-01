@@ -7,6 +7,8 @@ const url = 'https://www.gurufocus.com/term/peg/AAPL/PEG-Ratio'
 var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 import { Line } from 'react-chartjs-2'
 import Select from 'react-select'
+import Particles from 'react-particles-js'
+
 // https://codepen.io/anon/pen/gQBGdR FIXED HEADER
 // https://github.com/jerairrest/react-chartjs-2/issues/81 create custom legend?
 // https://github.com/chartjs/Chart.js/issues/3150 show hide bar lines on custom click
@@ -88,6 +90,15 @@ const OuterContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin: 20px;
+  .particles-class {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    position: fixed;
+  }
 `
 
 const InnerContainer = styled.div`
@@ -554,6 +565,26 @@ class Index extends Component {
 
     return (
       <OuterContainer>
+      <Particles
+        className="particles-class"
+        params={{
+        "particles": {
+          "number": {
+              "value": 50
+          },
+          "size": {
+              "value": 3
+          }
+        },
+        "interactivity": {
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "repulse"
+            }
+          }
+        }
+      }}/>
         <Meta />
         <InnerContainer>
           <Table>

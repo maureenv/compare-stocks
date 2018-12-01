@@ -3733,6 +3733,10 @@ react-particle-animation@^1.0.1:
     raf "^3.4.0"
     react-sizeme "^2.4.2"
 
+react-particles-js@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/react-particles-js/-/react-particles-js-2.4.2.tgz#34a4d1ea15eaebcbb068f7b6a7c43b18792fcf65"
+
 react-select@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-2.1.2.tgz#7a3e4c2b9efcd8c44ae7cf6ebb8b060ef69c513c"
