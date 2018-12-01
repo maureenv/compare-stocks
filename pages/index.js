@@ -31,6 +31,12 @@ const chartOptions = {
       gridLines: {
         display: false,
       },
+      ticks: {
+        autoSkip: true,
+        maxTicksLimit: 8,
+        maxRotation: 0,
+        minRotation: 0,
+      },
     }],
     yAxes: [{
       ticks: {
@@ -47,9 +53,10 @@ const chartOptions = {
 const chartColors = ['#0d60bb', '#01a8d2', '#1dc7a3', '#0db106']
 
 const ChartContainer = styled.div`
-  height: 500px;
+  height: 300px;
   width: 100%;
   margin-top: 50px;
+  padding-bottom: 100px;
 `
 
 const HeroTitle = styled.h1`
@@ -125,11 +132,40 @@ const LegendItemContainer = styled.div`
   display: flex;
   align-items: center;
   margin: 0 20px;
+  cursor: pointer;
+  opacity: ${ props => props.opacity };
 `
 
 const ChartLegend = styled.div`
   display: flex;
   justify-content: center;
+`
+
+const DateRangeContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+`
+const DateRangeSelector = styled.div`
+  .input {
+    position: relative;
+    z-index: -9999;
+  }
+  .input:checked + label {
+    background: black;
+  }
+  .label {
+    background: gray;
+    color: #fff;
+    padding: 5px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    font-size: 13px;
+    border-radius: 4px;
+    width: 30px;
+    text-align: center;
+    display: inline-block;
+  }
 `
 
 const Dropdown = styled.div`
@@ -175,7 +211,8 @@ class Index extends Component {
   state = {
     stocks: {},
     symbolList: [],
-    chartRange: '1M'
+    chartRange: '1M',
+    redraw: true,
   }
 
   componentWillMount() {
@@ -223,7 +260,7 @@ class Index extends Component {
          borderCapStyle: 'butt',
          borderJoinStyle: 'bevel',
          pointBorderColor: chartColors[i],
-         pointBackgroundColor: '#fff',
+         pointBackgroundColor: chartColors[i],
          pointBorderWidth: 0.5,
          borderWidth: 2,
          pointHoverRadius: 3,
@@ -383,14 +420,14 @@ class Index extends Component {
 
   toggleLine = i => {
     this.refs.chart.chartInstance.getDatasetMeta( i ).hidden = this.state[`line${ i }`]
-    this.setState( prevState => ({ [`line${ i }`]: !prevState[`line${ i }`] }) )
+    this.setState( prevState => ({ [`line${ i }`]: !prevState[`line${ i }`], redraw: false }) )
     this.refs.chart.chartInstance.update()
   }
 
   renderLegend = () => {
     const { stocks } = this.state
     return stocks.length && stocks.map( ( s, i ) =>
-      <LegendItemContainer onClick={ () => this.toggleLine( i ) }>
+      <LegendItemContainer onClick={ () => this.toggleLine( i ) } opacity={ this.state[`line${ i }`] ? 1 : 0.3 }>
         <Bullet color={ chartColors[i] }/>
         <LegendName>{ s.company.companyName }</LegendName>
       </LegendItemContainer>
@@ -459,10 +496,10 @@ class Index extends Component {
   renderChartOptions = () => {
     const options = ['1D', '1M', '1Y', '5Y' ]
     return options.map( o =>
-      <div>
-        <input name="chart" onClick={ () => this.setChartRange( o ) } id={ o } type="radio" key={ o } value={ o } checked={ o === this.state.chartRange }/>
-        <label htmlFor={ o }>{ o }</label>
-      </div>
+      <DateRangeSelector>
+        <input className="input" name="chart" onClick={ () => this.setChartRange( o ) } id={ o } type="radio" key={ o } value={ o } checked={ o === this.state.chartRange }/>
+        <label className="label" htmlFor={ o }>{ o }</label>
+      </DateRangeSelector>
     )
   }
 
@@ -492,6 +529,7 @@ class Index extends Component {
       stocks,
       chartData,
       chartOptions,
+      redraw,
     } = this.state
 
     const tableHeaders = [
@@ -544,9 +582,9 @@ class Index extends Component {
             </tbody>
           </Table>
           <ChartContainer>
-            <div style={{ display: 'flex'}}>{ this.renderChartOptions() }</div>
+            <DateRangeContainer>{ this.renderChartOptions() }</DateRangeContainer>
             <ChartLegend>{ this.renderLegend() }</ChartLegend>
-            <Line ref="chart" data={ chartData } options={ chartOptions } redraw={ false }/>
+            <Line ref="chart" data={ chartData } options={ chartOptions } redraw={ redraw }/>
           </ChartContainer>
         </InnerContainer>
       </OuterContainer>
