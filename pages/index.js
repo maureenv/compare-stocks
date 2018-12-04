@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import fetch from 'isomorphic-unfetch'
 import cheerio from 'cheerio'
-import Meta from '../components/meta'
+import Main from '../components/pageLayout'
 const url = 'https://www.gurufocus.com/term/peg/AAPL/PEG-Ratio'
 var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 import { Line } from 'react-chartjs-2'
 import Select from 'react-select'
-import Particles from 'react-particles-js'
 
 // https://codepen.io/anon/pen/gQBGdR FIXED HEADER
 // https://github.com/jerairrest/react-chartjs-2/issues/81 create custom legend?
@@ -82,14 +81,12 @@ border-bottom: 1px solid gray;
 
 const OuterContainer = styled.div`
   background: #f5f5f5;
-  width: 100%;
   height: 100%;
   border-radius: 4px;
-  max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px;
+  margin: 40px;
   .particles-class {
     width: 100%;
     height: 100%;
@@ -128,7 +125,7 @@ const SelectStyles = styled.div`
 
 const Bullet = styled.div`
   width: 20px;
-  height: 20px;
+  height: 8px;
   border-radius: 10px;
   margin-right: 8px;
   background-color: ${ props => props.color };
@@ -163,10 +160,10 @@ const DateRangeSelector = styled.div`
     z-index: -9999;
   }
   .input:checked + label {
-    background: black;
+    background: ${ props => props.theme.darkblue };
   }
   .label {
-    background: gray;
+    background: ${ props => props.theme.lightgray };
     color: #fff;
     padding: 5px;
     font-family: 'Roboto', sans-serif;
@@ -224,18 +221,10 @@ class Index extends Component {
     symbolList: [],
     chartRange: '1M',
     redraw: true,
+    timeout: null,
   }
 
   componentWillMount() {
-    // ( async () => {
-    //   const res = await fetch('https://api.iextrading.com/1.0/stock/market/batch?symbols=aapl,msft&types=quote,stats,financials,company,earnings,chart&range=3m')
-    //   const data = await res.json()
-    //   const stocks = []
-    //   const array = Object.keys( data ).map( d => stocks.push( data[d] ))
-    //   this.setState({ stocks })
-    //   this.buildChartData( stocks )
-    // })()
-
     fetch( proxyUrl + url )
       .then( res => res.text() )
       .then( (body ) => {
@@ -247,6 +236,11 @@ class Index extends Component {
         //   console.log(element, 'the index')
         // })
       })
+  }
+
+  componentDidMount() {
+    // document.body.addEventListener( 'click', this.clearMatches )
+    // document.body.addEventListener( 'keyup', this.clearMatches )
   }
 
   buildChartData = stocks => {
@@ -335,17 +329,19 @@ class Index extends Component {
     }
   }
 
+  findMatch = ( selected, index ) => {
+    ( async () => {
+      const res = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${ selected }&apikey=KT28GNBJ2ECP4SJ1`)
+      const data = await res.json()
+      this.setState({ [`matches${index}`]: data['bestMatches'] })
+    })()
+  }
+
   setSymbol = ( index, e, clickedItem ) => {
     let selected
     if ( clickedItem === "input" ) {
       selected = e.target.value.toUpperCase()
-      setTimeout( () => {
-        ( async () => {
-          const res = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${ selected }&apikey=KT28GNBJ2ECP4SJ1`)
-          const data = await res.json()
-          this.setState({ [`matches${index}`]: data['bestMatches'] })
-        })()
-      }, 500)
+      this.findMatch( selected, index )
     }
     else {
       selected = e
@@ -356,8 +352,14 @@ class Index extends Component {
     this.setState({ symbolList })
   }
 
-  clearMatches = i => {
-    this.setState({ [`matches${ i }`]: null })
+  clearMatches =() => {
+    // const clicked = e.target.getAttribute( 'class' )
+    // if ( clicked !== 'symbol' && clicked !== 'match' ) {
+    console.log('i was called')
+      for ( let i = 0; i < 5; i++ ) {
+        this.setState({ [`matches${ i }`]: null })
+      }
+    // }
   }
 
   submit = () => {
@@ -373,7 +375,7 @@ class Index extends Component {
         const stocks = []
         const array = Object.keys( data ).map( d => stocks.push( data[d] ))
         if ( stocks.length > 0 ) {
-          this.setState({ stocks, line0: true, line1: true, line2: true, line3: true })
+          this.setState({ stocks, chartRange: '1M', line0: true, line1: true, line2: true, line3: true })
           this.buildChartData( stocks )
         }
       }
@@ -407,14 +409,13 @@ class Index extends Component {
 
   renderInputFields = () => {
     const { symbolList } = this.state
-
     return Array.from( new Array( 4 ), (val, i ) => {
       return (
         <Th left={ true } key={ i }>
-          <DropdownContainer>
-            <input className="input" type="text" placeholder="Enter stock symbol" value={ symbolList[i] || '' } onChange={ e => this.setSymbol( i, e, 'input' )} onBlur={ () => this.clearMatches( i ) }/>
+          <DropdownContainer onMouseLeave={ () => this.clearMatches() } onFocus={ () => this.clearMatches() }>
+            <input className="input" type="text" placeholder="Enter stock symbol" value={ symbolList[i] || '' } onChange={ e => this.setSymbol( i, e, 'input' )}/>
             { this.state[`matches${ i }`] &&
-              <Dropdown>
+              <Dropdown id="dropdown">
                 { this.state[`matches${ i }`].map( m =>
                   <div className="match" onClick={ e => this.setSymbol( i, m['1. symbol'], 'dropdown' )}>
                     <p className="symbol">{ m['1. symbol']}</p>
@@ -564,28 +565,8 @@ class Index extends Component {
     // still need: PEG, current ratio, quick ratio, intereset coverage, asset turnover, inventory turnover
 
     return (
+      <Main>
       <OuterContainer>
-      <Particles
-        className="particles-class"
-        params={{
-        "particles": {
-          "number": {
-              "value": 50
-          },
-          "size": {
-              "value": 3
-          }
-        },
-        "interactivity": {
-          "events": {
-            "onhover": {
-              "enable": true,
-              "mode": "repulse"
-            }
-          }
-        }
-      }}/>
-        <Meta />
         <InnerContainer>
           <Table>
             <tbody>
@@ -612,13 +593,16 @@ class Index extends Component {
               { this.renderCalculatedRow( 'Asset Turnover (Current Quarter)', 'calculateAssetTurnover' )}
             </tbody>
           </Table>
-          <ChartContainer>
-            <DateRangeContainer>{ this.renderChartOptions() }</DateRangeContainer>
-            <ChartLegend>{ this.renderLegend() }</ChartLegend>
-            <Line ref="chart" data={ chartData } options={ chartOptions } redraw={ redraw }/>
-          </ChartContainer>
+          { stocks.length &&
+            <ChartContainer>
+              <DateRangeContainer>{ this.renderChartOptions() }</DateRangeContainer>
+              <ChartLegend>{ this.renderLegend() }</ChartLegend>
+              <Line ref="chart" data={ chartData } options={ chartOptions } redraw={ redraw }/>
+            </ChartContainer>
+          }
         </InnerContainer>
       </OuterContainer>
+      </Main>
     )
   }
 }

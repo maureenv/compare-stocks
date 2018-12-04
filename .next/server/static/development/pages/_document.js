@@ -141,7 +141,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');\n  body {\n\n    background: rgba(0,179,179,1);\n    background: -moz-linear-gradient(45deg, rgba(0,179,179,1) 0%, rgba(0,126,194,1) 100%);\n    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(0,179,179,1)), color-stop(100%, rgba(0,126,194,1)));\n    background: -webkit-linear-gradient(45deg, rgba(0,179,179,1) 0%, rgba(0,126,194,1) 100%);\n    background: -o-linear-gradient(45deg, rgba(0,179,179,1) 0%, rgba(0,126,194,1) 100%);\n    background: -ms-linear-gradient(45deg, rgba(0,179,179,1) 0%, rgba(0,126,194,1) 100%);\n    background: linear-gradient(45deg, rgba(0,179,179,1) 0%, rgba(0,126,194,1) 100%);\n    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b3b3', endColorstr='#007ec2', GradientType=1 );\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n    min-height: 100vh;\n  }\n  #__next {\n    width: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  ", "\n  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');\n  body {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n    min-height: 100vh;\n  }\n  #__next {\n    width: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -177,37 +177,37 @@ function (_Document) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("html", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 55
+          lineNumber: 46
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_1__["Head"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 56
+          lineNumber: 47
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(GlobalStyle, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 57
+          lineNumber: 48
         },
         __self: this
       }), this.props.styleTags), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("body", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 61
+          lineNumber: 52
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_1__["Main"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 62
+          lineNumber: 53
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_1__["NextScript"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 63
+          lineNumber: 54
         },
         __self: this
       })));
@@ -224,7 +224,7 @@ function (_Document) {
           return sheet.collectStyles(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, _extends({}, props, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 43
+              lineNumber: 34
             },
             __self: this
           })));
