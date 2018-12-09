@@ -51,24 +51,15 @@ const chartOptions = {
   },
 }
 
-const chartColors = ['#0d60bb', '#01a8d2', '#1dc7a3', '#0db106']
+const chartColors = ['#003773', '#0094b9', '#d60000', '#ff6e00']
 
 const ChartContainer = styled.div`
-  height: 300px;
+  height: 400px;
   width: 100%;
   margin-top: 50px;
   padding-bottom: 100px;
-`
-
-const HeroTitle = styled.h1`
-  color:red;
-  position: relative;
-  z-index: 1;
-  text-transform: uppercase;
-  font-size: 100px;
-  margin-bottom: -10px;
-  font-family: 'Anton', sans-serif;
-  text-shadow: -3px 0px 11px rgba(0,0,0,0.7);
+  padding-right: 20px;
+  box-sizing: border-box;
 `
 
 const Table = styled.table`
@@ -103,6 +94,7 @@ const InnerContainer = styled.div`
   width: 100%;
   max-width: 1000px;
   position: relative;
+  padding-right: 0;
 `
 
 const TitleBanner = styled.div`
@@ -141,6 +133,18 @@ const TitleBanner = styled.div`
     border-width: 10px 9px 0 0;
     border-color: #770000 transparent transparent transparent;
   }
+`
+
+const BannerButton = styled.button`
+  appearance: none;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #770000;
 `
 
 const Tr = styled.tr`
@@ -258,23 +262,31 @@ const Dropdown = styled.div`
 const DropdownContainer = styled.div`
   position: relative;
   .input {
-    font-size: 13px;
+    font-size: 15px;
     padding: 5px;
     border: none;
-    background: ${ props => props.theme.whitegray };
+    background: none;
+    border-bottom: ${ props => props.hasValue || '1px solid #fff' };
+    color: #fff;
+    font-weight: 700;
     text-align: right;
-    width: 80px;
+    width: 100px;
+    transition: all 0.2s ease-in-out;
     ::-webkit-input-placeholder {
-      color: #6f6f6f;
-      }
+      color: #fff;
+      font-weight: 300;
+    }
     ::-moz-placeholder {
-      color: #6f6f6f;
+      color: #fff;
+      font-weight: 300;
     }
     :-ms-input-placeholder {
-      color: #6f6f6f;
+      color: #fff;
+      font-weight: 300;
     }
     :-moz-placeholder {
-      color: #6f6f6f;
+      color: #fff;
+      font-weight: 300;
     }
   }
 `
@@ -420,7 +432,6 @@ class Index extends Component {
   clearMatches =() => {
     // const clicked = e.target.getAttribute( 'class' )
     // if ( clicked !== 'symbol' && clicked !== 'match' ) {
-    console.log('i was called')
       for ( let i = 0; i < 5; i++ ) {
         this.setState({ [`matches${ i }`]: null })
       }
@@ -477,12 +488,12 @@ class Index extends Component {
     return Array.from( new Array( 4 ), (val, i ) => {
       return (
         <Th left={ false } key={ i }>
-          <DropdownContainer onMouseLeave={ () => this.clearMatches() } onFocus={ () => this.clearMatches() }>
+          <DropdownContainer onMouseLeave={ () => this.clearMatches() } hasValue={ symbolList[i] } onFocus={ () => this.clearMatches() }>
             <input className="input" type="text" placeholder="Enter symbol" value={ symbolList[i] || '' } onChange={ e => this.setSymbol( i, e, 'input' )}/>
             { this.state[`matches${ i }`] &&
               <Dropdown id="dropdown">
                 { this.state[`matches${ i }`].map( m =>
-                  <div className="match" onClick={ e => this.setSymbol( i, m['1. symbol'], 'dropdown' )}>
+                  <div className="match" key={ m['1. symbol'] } onClick={ e => this.setSymbol( i, m['1. symbol'], 'dropdown' )}>
                     <p className="symbol">{ m['1. symbol']}</p>
                     <p className="company-name">{ m['2. name'] }</p>
                   </div>
@@ -504,7 +515,7 @@ class Index extends Component {
   renderLegend = () => {
     const { stocks } = this.state
     return stocks.length && stocks.map( ( s, i ) =>
-      <LegendItemContainer onClick={ () => this.toggleLine( i ) } opacity={ this.state[`line${ i }`] ? 1 : 0.3 }>
+      <LegendItemContainer key={ i } onClick={ () => this.toggleLine( i ) } opacity={ this.state[`line${ i }`] ? 1 : 0.3 }>
         <Bullet color={ chartColors[i] }/>
         <LegendName>{ s.company.companyName }</LegendName>
       </LegendItemContainer>
@@ -573,8 +584,8 @@ class Index extends Component {
   renderChartOptions = () => {
     const options = ['1D', '1M', '1Y', '5Y' ]
     return options.map( o =>
-      <DateRangeSelector>
-        <input className="input" name="chart" onClick={ () => this.setChartRange( o ) } id={ o } type="radio" key={ o } value={ o } checked={ o === this.state.chartRange }/>
+      <DateRangeSelector key={ o }>
+        <input className="input" name="chart" onChange={ () => this.setChartRange( o ) } id={ o } type="radio" value={ o } checked={ o === this.state.chartRange }/>
         <label className="label" htmlFor={ o }>{ o }</label>
       </DateRangeSelector>
     )
@@ -639,7 +650,7 @@ class Index extends Component {
               <Tr>
                 <Th left={ true } bannerTitle={ true }> Stock Symbol </Th>
                 { this.renderInputFields() }
-                <button onClick={ () => this.submit() }> Go </button>
+                <Th><BannerButton onClick={ () => this.submit() }> Go </BannerButton></Th>
               </Tr>
               { this.renderTableRow( 'Name', 'company', 'companyName', false, false )}
               { this.renderTableRow( 'Sector', 'company', 'sector', false, false )}
