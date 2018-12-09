@@ -72,11 +72,11 @@ const HeroTitle = styled.h1`
 `
 
 const Table = styled.table`
-
+  position: relative;
 `
 
 const Tbody = styled.tbody`
-border-bottom: 1px solid gray;
+  border-bottom: 1px solid gray;
 `
 
 const OuterContainer = styled.div`
@@ -102,6 +102,45 @@ const InnerContainer = styled.div`
   padding: 20px;
   width: 100%;
   max-width: 1000px;
+  position: relative;
+`
+
+const TitleBanner = styled.div`
+  width: 102%;
+  height: 50px;
+  border-bottom: 1px solid #ffc190;
+  background: #f74b31; /* Old browsers */
+  background: -moz-linear-gradient(left, #f74b31 0%, #ff6e00 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #f74b31 0%,#ff6e00 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #f74b31 0%,#ff6e00 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f74b31', endColorstr='#ff6e00',GradientType=1 ); /* IE6-9 */
+  position: absolute;
+  left: -52%;
+  transform: translate(50%);
+  -webkit-box-shadow: 0px 2px 11px 0 rgba(0,0,0,0.26);
+  -moz-box-shadow: 0px 2px 11px 0 rgba(0,0,0,0.26);
+  box-shadow: 0px 2px 11px 0 rgba(0,0,0,0.26);
+  &:after {
+    content: "";
+    width: 0;
+    bottom: -10px;
+    position: absolute;
+    height: 0;
+    border-style: solid;
+    border-width: 0 9px 10px 0;
+    border-color: transparent #770000 transparent transparent;
+  }
+  &:before {
+    content: "";
+    width: 0;
+    bottom: -10px;
+    position: absolute;
+    height: 0;
+    right: 0;
+    border-style: solid;
+    border-width: 10px 9px 0 0;
+    border-color: #770000 transparent transparent transparent;
+  }
 `
 
 const Tr = styled.tr`
@@ -109,12 +148,19 @@ const Tr = styled.tr`
   text-align: left;
   position: ${ props => props.fixed && 'fixed' };
   border-bottom:  ${ props => !props.fixed && '1px solid #d6d6d6'};
+  &:first-child {
+    border-bottom: 0;
+  }
 `
 
 const Th = styled.th`
   text-align: ${ props => props.left ? 'left' : 'right'};
   padding: 10px 20px;
-  font-size: 13px;
+  font-size: ${ props => props.bannerTitle ? '15px' : '13px' };
+  color: ${ props => props.bannerTitle && 'white' };
+  font-weight: ${ props => props.bannerTitle && 700 };
+  padding-top: ${ props => props.bannerTitle && '18px' };
+  padding-bottom: ${ props => props.bannerTitle && '20px' };
 `
 
 const SelectStyles = styled.div`
@@ -154,6 +200,7 @@ const DateRangeContainer = styled.div`
   justify-content: center;
   margin-bottom: 20px;
 `
+
 const DateRangeSelector = styled.div`
   .input {
     position: relative;
@@ -212,15 +259,32 @@ const DropdownContainer = styled.div`
   position: relative;
   .input {
     font-size: 13px;
+    padding: 5px;
+    border: none;
+    background: ${ props => props.theme.whitegray };
+    text-align: right;
+    width: 80px;
+    ::-webkit-input-placeholder {
+      color: #6f6f6f;
+      }
+    ::-moz-placeholder {
+      color: #6f6f6f;
+    }
+    :-ms-input-placeholder {
+      color: #6f6f6f;
+    }
+    :-moz-placeholder {
+      color: #6f6f6f;
+    }
   }
 `
 
 class Index extends Component {
   state = {
     stocks: {},
-    symbolList: [],
+    symbolList: ['V', 'MA'],
     chartRange: '1M',
-    redraw: true,
+    redraw: false,
     timeout: null,
   }
 
@@ -239,6 +303,7 @@ class Index extends Component {
   }
 
   componentDidMount() {
+    this.submit()
     // document.body.addEventListener( 'click', this.clearMatches )
     // document.body.addEventListener( 'keyup', this.clearMatches )
   }
@@ -411,9 +476,9 @@ class Index extends Component {
     const { symbolList } = this.state
     return Array.from( new Array( 4 ), (val, i ) => {
       return (
-        <Th left={ true } key={ i }>
+        <Th left={ false } key={ i }>
           <DropdownContainer onMouseLeave={ () => this.clearMatches() } onFocus={ () => this.clearMatches() }>
-            <input className="input" type="text" placeholder="Enter stock symbol" value={ symbolList[i] || '' } onChange={ e => this.setSymbol( i, e, 'input' )}/>
+            <input className="input" type="text" placeholder="Enter symbol" value={ symbolList[i] || '' } onChange={ e => this.setSymbol( i, e, 'input' )}/>
             { this.state[`matches${ i }`] &&
               <Dropdown id="dropdown">
                 { this.state[`matches${ i }`].map( m =>
@@ -568,10 +633,11 @@ class Index extends Component {
       <Main>
       <OuterContainer>
         <InnerContainer>
+          <TitleBanner/>
           <Table>
             <tbody>
               <Tr>
-                <Th left={ true }> Stock Symbol </Th>
+                <Th left={ true } bannerTitle={ true }> Stock Symbol </Th>
                 { this.renderInputFields() }
                 <button onClick={ () => this.submit() }> Go </button>
               </Tr>

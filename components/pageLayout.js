@@ -29,6 +29,7 @@ const Main = styled.div`
 const theme = {
   lightblue: 'rgba(0,179,179,1)',
   darkblue: 'rgba(0,126,194,1)',
+  whitegray: '#f5f5f5',
   lightgray: '#adadad',
 }
 
@@ -43,11 +44,15 @@ export default ({ children }) => (
         },
         "particles": {
           "number": {
-            "value": 50
+            "value": 80
           },
           "size": {
             "value": 3
-          }
+          },
+          "move": {
+            "enable": true,
+            "speed": 1,
+          },
         },
         "interactivity": {
           "events": {

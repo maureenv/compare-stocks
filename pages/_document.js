@@ -22,6 +22,10 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     justify-content: center;
   }
+  body, h1, h2, h3, h4, div, p {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; /* for firefox font */
+  }
 `
 
 export default class MyDocument extends Document {
