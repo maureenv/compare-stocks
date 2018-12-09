@@ -1,7 +1,29 @@
 import Meta from './meta'
-import styled, { ThemeProvider } from 'styled-components'
+import styled, { createGlobalStyle , ThemeProvider } from 'styled-components'
 import Particles from 'react-particles-js'
+import reset from 'styled-reset'
 
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 100vh;
+  }
+  #__next {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  body, h1, h2, h3, h4, div, p {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; /* for firefox font */
+  }
+`
 
 const Main = styled.div`
   .particles-class {
@@ -36,6 +58,7 @@ const theme = {
 
 export default ({ children }) => (
   <Main>
+    <GlobalStyle/>
     <Particles
       className="particles-class"
       params={{

@@ -1,32 +1,8 @@
 import Document, { Head, Main, NextScript } from 'next/document'
 // Import styled components ServerStyleSheet
 import { ServerStyleSheet } from 'styled-components'
-import { createGlobalStyle } from 'styled-components'
-import reset from 'styled-reset'
 import Particles from 'react-particles-js'
 
-
-const GlobalStyle = createGlobalStyle`
-  ${reset}
-  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    min-height: 100vh;
-  }
-  #__next {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  body, h1, h2, h3, h4, div, p {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; /* for firefox font */
-  }
-`
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
@@ -49,7 +25,6 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <GlobalStyle/>
           {/* Step 5: Output the styles in the head  */}
           {this.props.styleTags}
         </Head>

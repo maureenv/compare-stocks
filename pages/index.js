@@ -78,15 +78,6 @@ const OuterContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin: 40px;
-  .particles-class {
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    position: absolute;
-    top: 0;
-    z-index: -1;
-    position: fixed;
-  }
 `
 
 const InnerContainer = styled.div`
@@ -150,8 +141,7 @@ const BannerButton = styled.button`
 const Tr = styled.tr`
   font-family: 'Roboto', sans-serif;
   text-align: left;
-  position: ${ props => props.fixed && 'fixed' };
-  border-bottom:  ${ props => !props.fixed && '1px solid #d6d6d6'};
+  border-bottom: 1px solid #d6d6d6;
   &:first-child {
     border-bottom: 0;
   }

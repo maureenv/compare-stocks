@@ -109,10 +109,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_document__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_document__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "styled-components");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var styled_reset__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-reset */ "styled-reset");
-/* harmony import */ var styled_reset__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(styled_reset__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_particles_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-particles-js */ "react-particles-js");
-/* harmony import */ var react_particles_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_particles_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_particles_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-particles-js */ "react-particles-js");
+/* harmony import */ var react_particles_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_particles_js__WEBPACK_IMPORTED_MODULE_3__);
 var _jsxFileName = "/Users/maureenvogel/webprojects/stocks/pages/_document.js";
 
 
@@ -140,25 +138,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  ", "\n  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');\n  body {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n    min-height: 100vh;\n  }\n  #__next {\n    width: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  body, h1, h2, h3, h4, div, p {\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale; /* for firefox font */\n  }\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
  // Import styled components ServerStyleSheet
 
 
 
-
-
-var GlobalStyle = Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["createGlobalStyle"])(_templateObject(), styled_reset__WEBPACK_IMPORTED_MODULE_3___default.a);
 
 var MyDocument =
 /*#__PURE__*/
@@ -177,37 +160,31 @@ function (_Document) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("html", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 50
+          lineNumber: 26
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_1__["Head"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 51
+          lineNumber: 27
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(GlobalStyle, {
+      }, this.props.styleTags), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("body", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 52
-        },
-        __self: this
-      }), this.props.styleTags), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("body", {
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 56
+          lineNumber: 31
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_1__["Main"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 57
+          lineNumber: 32
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_1__["NextScript"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 58
+          lineNumber: 33
         },
         __self: this
       })));
@@ -224,7 +201,7 @@ function (_Document) {
           return sheet.collectStyles(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, _extends({}, props, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 38
+              lineNumber: 14
             },
             __self: this
           })));
@@ -299,17 +276,6 @@ module.exports = require("react-particles-js");
 /***/ (function(module, exports) {
 
 module.exports = require("styled-components");
-
-/***/ }),
-
-/***/ "styled-reset":
-/*!*******************************!*\
-  !*** external "styled-reset" ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("styled-reset");
 
 /***/ })
 
