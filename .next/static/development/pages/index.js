@@ -81660,6 +81660,13 @@ var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 // https://github.com/jerairrest/react-chartjs-2/issues/81 create custom legend?
 // https://github.com/chartjs/Chart.js/issues/3150 show hide bar lines on custom click
 
+var descriptions = [{
+  PEG: 'The PEG Ratio (Price/Earnings to Growth) is the stock’s price to earnings (P/E) ratio divided by its earnings growth rate in a specific time. The lower the PEG ratio, the more the stock may be undervalued. Generally, a PEG ratio below one is desirable'
+}, {
+  peRatio: 'The price-earnings ratio determines how much investors are willing to pay for a stock relative to the company’s earnings. It’s calculated by taking the current price of a stock and dividing it by the comspany’s earnings per share. A low P/E ratio means the stock is undervalued. Companies in new, quick-growing industries with lots of future potential tend to have lower P/E ratios. However, a low P/E ratio can also reflect a lack of growth potential.'
+}, {
+  priceToSales: 'The price-to-sales ratio compares a company’s stock price to its revenues. It’s calculated by dividing the company’s total market capitalization by its year’s worth of past sales. A low P/S ratio means the stock is undervalued by the market.'
+}];
 var chartData = {
   labels: [],
   datasets: []
@@ -82112,7 +82119,7 @@ function (_Component) {
           key: i,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 480
+            lineNumber: 486
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DropdownContainer, {
@@ -82125,7 +82132,7 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 481
+            lineNumber: 487
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
@@ -82138,14 +82145,14 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 482
+            lineNumber: 488
           },
           __self: this
         }), _this.state["matches".concat(i)] && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Dropdown, {
           id: "dropdown",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 484
+            lineNumber: 490
           },
           __self: this
         }, _this.state["matches".concat(i)].map(function (m) {
@@ -82157,21 +82164,21 @@ function (_Component) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 486
+              lineNumber: 492
             },
             __self: this
           }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
             className: "symbol",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 487
+              lineNumber: 493
             },
             __self: this
           }, m['1. symbol']), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
             className: "company-name",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 488
+              lineNumber: 494
             },
             __self: this
           }, m['2. name']));
@@ -82202,20 +82209,20 @@ function (_Component) {
           opacity: _this.state["line".concat(i)] ? 1 : 0.3,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 508
+            lineNumber: 514
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Bullet, {
           color: chartColors[i],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 509
+            lineNumber: 515
           },
           __self: this
         }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(LegendName, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 510
+            lineNumber: 516
           },
           __self: this
         }, s.company.companyName));
@@ -82248,7 +82255,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 540
+                  lineNumber: 546
                 },
                 __self: this
               }, _this.calculatePayoutRatio(s));
@@ -82261,7 +82268,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 545
+                  lineNumber: 551
                 },
                 __self: this
               }, _this.calculateDebtToEquity(s));
@@ -82274,7 +82281,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 550
+                  lineNumber: 556
                 },
                 __self: this
               }, _this.calculateAssetTurnover(s));
@@ -82289,7 +82296,7 @@ function (_Component) {
           colSpan: "4",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 558
+            lineNumber: 564
           },
           __self: this
         });
@@ -82301,21 +82308,21 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 566
+          lineNumber: 572
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 567
+          lineNumber: 573
         },
         __self: this
       }, title), _this.getCalculatedValues(functionName), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 569
+          lineNumber: 575
         },
         __self: this
       }));
@@ -82328,7 +82335,7 @@ function (_Component) {
           key: o,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 577
+            lineNumber: 583
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
@@ -82343,7 +82350,7 @@ function (_Component) {
           checked: o === _this.state.chartRange,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 578
+            lineNumber: 584
           },
           __self: this
         }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
@@ -82351,7 +82358,7 @@ function (_Component) {
           htmlFor: o,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 579
+            lineNumber: 585
           },
           __self: this
         }, o));
@@ -82360,25 +82367,43 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderTableRow", function (title, category, subcategory, isDollar, isPercent) {
       var stocks = _this.state.stocks;
+      var info = descriptions.filter(function (d) {
+        if (Object.keys(d)[0] === subcategory) {
+          return d;
+        }
+      });
+      var hasInfo = info.length > 0 && info[0][subcategory];
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 588
+          lineNumber: 601
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 589
+          lineNumber: 602
         },
         __self: this
-      }, title), stocks.length ? stocks.map(function (s) {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 603
+        },
+        __self: this
+      }, title), hasInfo && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 604
+        },
+        __self: this
+      }, hasInfo)), stocks.length ? stocks.map(function (s) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 592
+            lineNumber: 608
           },
           __self: this
         }, isDollar && s[category][subcategory] !== null && '$', _this.getValue(s[category][subcategory]), isPercent && s[category][subcategory] !== null && '%');
@@ -82386,14 +82411,14 @@ function (_Component) {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 598
+          lineNumber: 614
         },
         __self: this
       }), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 600
+          lineNumber: 616
         },
         __self: this
       }));
@@ -82435,49 +82460,48 @@ function (_Component) {
       'Price To Earning (P/E)', 'Price to Sales (P/S)', 'Price to Book (P/B)', 'Dividend Yield', 'Dividend Payout', 'Return On Assets', 'Return On Equity', 'Profit Margin', 'Current Ratio', //
       'Quick Ratio', //
       'Debt to Equity', 'Interest Coverage', //
-      'Asset Turnover', //
-      'Inventory Turnover'];
+      'Asset Turnover', 'Inventory Turnover'];
       // still need: PEG, current ratio, quick ratio, intereset coverage, asset turnover, inventory turnover
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_pageLayout__WEBPACK_IMPORTED_MODULE_5__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 634
+          lineNumber: 649
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OuterContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 635
+          lineNumber: 650
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(InnerContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 636
+          lineNumber: 651
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TitleBanner, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 637
+          lineNumber: 652
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Table, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 638
+          lineNumber: 653
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 639
+          lineNumber: 654
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 640
+          lineNumber: 655
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
@@ -82485,13 +82509,13 @@ function (_Component) {
         bannerTitle: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 641
+          lineNumber: 656
         },
         __self: this
       }, " Stock Symbol "), this.renderInputFields(), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 643
+          lineNumber: 658
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(BannerButton, {
@@ -82500,25 +82524,145 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 643
+          lineNumber: 658
         },
         __self: this
-      }, " Go "))), this.renderTableRow('Name', 'company', 'companyName', false, false), this.renderTableRow('Sector', 'company', 'sector', false, false), this.renderTableRow('Industry', 'company', 'industry', false, false), this.renderTableRow('Latest Price', 'quote', 'latestPrice', true, false), this.renderTableRow('Price to Earning (P/E)', 'quote', 'peRatio', false, true), this.renderTableRow('Price to Sales (P/S)', 'stats', 'priceToSales', false, true), this.renderTableRow('Price to Book (P/B)', 'stats', 'priceToBook', false, true), this.renderTableRow('Dividend Yield', 'stats', 'dividendYield', false, true), this.renderTableRow('Dividend Rate', 'stats', 'dividendRate', true, false), this.renderCalculatedRow('Dividend Payout Ratio', 'calculatePayoutRatio'), this.renderTableRow('Return On Assets', 'stats', 'returnOnAssets', false, true), this.renderTableRow('Return On Equity', 'stats', 'returnOnEquity', false, true), this.renderTableRow('Profit Margin', 'stats', 'profitMargin', false, true), this.renderCalculatedRow('Debt to Equity', 'calculateDebtToEquity'), this.renderCalculatedRow('Asset Turnover (Current Quarter)', 'calculateAssetTurnover'))), stocks.length && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartContainer, {
+      }, " Go "))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 664
+          lineNumber: 660
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        left: true,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 661
+        },
+        __self: this
+      }, " PEG "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        colSpan: "3",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 662
+        },
+        __self: this
+      })), this.renderTableRow('Name', 'company', 'companyName', false, false), this.renderTableRow('Sector', 'company', 'sector', false, false), this.renderTableRow('Industry', 'company', 'industry', false, false), this.renderTableRow('Latest Price', 'quote', 'latestPrice', true, false), this.renderTableRow('Price to Earning (P/E)', 'quote', 'peRatio', false, true), this.renderTableRow('Price to Sales (P/S)', 'stats', 'priceToSales', false, true), this.renderTableRow('Price to Book (P/B)', 'stats', 'priceToBook', false, true), this.renderTableRow('Dividend Yield', 'stats', 'dividendYield', false, true), this.renderTableRow('Dividend Rate', 'stats', 'dividendRate', true, false), this.renderCalculatedRow('Dividend Payout Ratio', 'calculatePayoutRatio'), this.renderTableRow('Return On Assets', 'stats', 'returnOnAssets', false, true), this.renderTableRow('Return On Equity', 'stats', 'returnOnEquity', false, true), this.renderTableRow('Profit Margin', 'stats', 'profitMargin', false, true), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 678
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        left: true,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 679
+        },
+        __self: this
+      }, " Current Ratio "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        colSpan: "4",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 680
+        },
+        __self: this
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 682
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        left: true,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 683
+        },
+        __self: this
+      }, " Quick Ratio "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        colSpan: "4",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 684
+        },
+        __self: this
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 686
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        left: true,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 687
+        },
+        __self: this
+      }, " Debt To Equity "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        colSpan: "4",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 688
+        },
+        __self: this
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 690
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        left: true,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 691
+        },
+        __self: this
+      }, " Interest Coverage "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        colSpan: "4",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 692
+        },
+        __self: this
+      })), this.renderCalculatedRow('Debt to Equity', 'calculateDebtToEquity'), this.renderCalculatedRow('Asset Turnover (Current Quarter)', 'calculateAssetTurnover'), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 696
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        left: true,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 697
+        },
+        __self: this
+      }, " Inventory Turnover "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
+        colSpan: "4",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 698
+        },
+        __self: this
+      })))), stocks.length && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartContainer, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 703
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DateRangeContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 665
+          lineNumber: 704
         },
         __self: this
       }, this.renderChartOptions()), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartLegend, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 666
+          lineNumber: 705
         },
         __self: this
       }, this.renderLegend()), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__["Line"], {
@@ -82528,7 +82672,7 @@ function (_Component) {
         redraw: redraw,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 667
+          lineNumber: 706
         },
         __self: this
       })))));

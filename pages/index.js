@@ -12,6 +12,12 @@ import Select from 'react-select'
 // https://github.com/jerairrest/react-chartjs-2/issues/81 create custom legend?
 // https://github.com/chartjs/Chart.js/issues/3150 show hide bar lines on custom click
 
+const descriptions = [
+  { PEG: 'The PEG Ratio (Price/Earnings to Growth) is the stock’s price to earnings (P/E) ratio divided by its earnings growth rate in a specific time. The lower the PEG ratio, the more the stock may be undervalued. Generally, a PEG ratio below one is desirable'},
+  { peRatio: 'The price-earnings ratio determines how much investors are willing to pay for a stock relative to the company’s earnings. It’s calculated by taking the current price of a stock and dividing it by the comspany’s earnings per share. A low P/E ratio means the stock is undervalued. Companies in new, quick-growing industries with lots of future potential tend to have lower P/E ratios. However, a low P/E ratio can also reflect a lack of growth potential.'},
+  { priceToSales: 'The price-to-sales ratio compares a company’s stock price to its revenues. It’s calculated by dividing the company’s total market capitalization by its year’s worth of past sales. A low P/S ratio means the stock is undervalued by the market.'}
+]
+
 const chartData = {
   labels: [],
   datasets: [],
@@ -583,10 +589,20 @@ class Index extends Component {
 
   renderTableRow = ( title, category, subcategory, isDollar, isPercent ) => {
     const { stocks } = this.state
+    const info = descriptions.filter( d => {
+      if ( Object.keys( d )[0] === subcategory ) {
+        return d
+      }
+    })
+
+    const hasInfo = info.length > 0 && info[0][subcategory]
 
     return (
       <Tr>
-        <Th left={ true }>{ title }</Th>
+        <Th left={ true }>
+          <div>{ title }</div>
+          { hasInfo && <div>{ hasInfo }</div> }
+        </Th>
         { stocks.length ?
           stocks.map( s =>
             <Th key={ s.company.companyName }>
@@ -625,11 +641,10 @@ class Index extends Component {
       'Quick Ratio', //
       'Debt to Equity',
       'Interest Coverage',//
-      'Asset Turnover',//
+      'Asset Turnover',
       'Inventory Turnover',//
     ]
     // still need: PEG, current ratio, quick ratio, intereset coverage, asset turnover, inventory turnover
-
     return (
       <Main>
       <OuterContainer>
@@ -641,6 +656,10 @@ class Index extends Component {
                 <Th left={ true } bannerTitle={ true }> Stock Symbol </Th>
                 { this.renderInputFields() }
                 <Th><BannerButton onClick={ () => this.submit() }> Go </BannerButton></Th>
+              </Tr>
+              <Tr>
+                <Th left={ true }> PEG </Th>
+                <Th colSpan="3"></Th>
               </Tr>
               { this.renderTableRow( 'Name', 'company', 'companyName', false, false )}
               { this.renderTableRow( 'Sector', 'company', 'sector', false, false )}
@@ -656,8 +675,28 @@ class Index extends Component {
               { this.renderTableRow( 'Return On Assets', 'stats', 'returnOnAssets', false, true )}
               { this.renderTableRow( 'Return On Equity', 'stats', 'returnOnEquity', false, true )}
               { this.renderTableRow( 'Profit Margin', 'stats', 'profitMargin', false, true )}
+              <Tr>
+                <Th left={ true }> Current Ratio </Th>
+                <Th colSpan="4"></Th>
+              </Tr>
+              <Tr>
+                <Th left={ true }> Quick Ratio </Th>
+                <Th colSpan="4"></Th>
+              </Tr>
+              <Tr>
+                <Th left={ true }> Debt To Equity </Th>
+                <Th colSpan="4"></Th>
+              </Tr>
+              <Tr>
+                <Th left={ true }> Interest Coverage </Th>
+                <Th colSpan="4"></Th>
+              </Tr>
               { this.renderCalculatedRow( 'Debt to Equity', 'calculateDebtToEquity' )}
               { this.renderCalculatedRow( 'Asset Turnover (Current Quarter)', 'calculateAssetTurnover' )}
+              <Tr>
+                <Th left={ true }> Inventory Turnover </Th>
+                <Th colSpan="4"></Th>
+              </Tr>
             </tbody>
           </Table>
           { stocks.length &&
