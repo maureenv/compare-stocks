@@ -49,8 +49,8 @@ const Main = styled.div`
 `
 
 const theme = {
-  lightblue: 'rgba(0,179,179,1)',
-  darkblue: 'rgba(0,126,194,1)',
+  lightblue: '#00b3b3',
+  darkblue: '#007ec2',
   whitegray: '#f5f5f5',
   lightgray: '#adadad',
 }

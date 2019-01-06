@@ -8,6 +8,8 @@ var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 import { Line } from 'react-chartjs-2'
 import Select from 'react-select'
 
+import infoIcon from '../static/info.svg'
+
 // https://codepen.io/anon/pen/gQBGdR FIXED HEADER
 // https://github.com/jerairrest/react-chartjs-2/issues/81 create custom legend?
 // https://github.com/chartjs/Chart.js/issues/3150 show hide bar lines on custom click
@@ -66,6 +68,10 @@ const ChartContainer = styled.div`
   padding-bottom: 100px;
   padding-right: 20px;
   box-sizing: border-box;
+`
+
+const InfoIcon = styled.img`
+  width: 15px;
 `
 
 const Table = styled.table`
@@ -142,6 +148,7 @@ const BannerButton = styled.button`
   cursor: pointer;
   letter-spacing: 1px;
   border-bottom: 2px solid #770000;
+  background: #fff;
 `
 
 const Tr = styled.tr`
@@ -166,6 +173,25 @@ const Th = styled.th`
 const SelectStyles = styled.div`
   .Select-control {
     width: 200px;
+  }
+`
+
+const RowHeader = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  .information-box {
+    position: absolute;
+    background: #fff;
+    line-height: 1.4;
+    z-index: 1;
+    padding: 15px;
+    border-radius: 4px;
+    width: 200px;
+    right: -210px;
+    -webkit-box-shadow: 0px 2px 11px 0 rgba(0,0,0,0.26);
+    -moz-box-shadow: 0px 2px 11px 0 rgba(0,0,0,0.26);
+    box-shadow: 0px 2px 11px 0 rgba(0,0,0,0.26);
   }
 `
 
@@ -285,6 +311,14 @@ const DropdownContainer = styled.div`
       font-weight: 300;
     }
   }
+`
+
+const InfoButton = styled.button`
+  position: relative;
+  border: none;
+  background: none;
+  height: 17px;
+  cursor: pointer;
 `
 
 class Index extends Component {
@@ -589,19 +623,30 @@ class Index extends Component {
 
   renderTableRow = ( title, category, subcategory, isDollar, isPercent ) => {
     const { stocks } = this.state
-    const info = descriptions.filter( d => {
+    const hasInfo = descriptions.filter( d => {
       if ( Object.keys( d )[0] === subcategory ) {
         return d
       }
     })
 
-    const hasInfo = info.length > 0 && info[0][subcategory]
+    const info = hasInfo.length > 0 && hasInfo[0][subcategory]
 
     return (
       <Tr>
         <Th left={ true }>
-          <div>{ title }</div>
-          { hasInfo && <div>{ hasInfo }</div> }
+          <RowHeader>
+            { this.state[title] &&
+              <div className="information-box">
+              <p>{ info }</p>
+            </div>
+            }
+            { title }
+            { info &&
+              <InfoButton aria-label={ `Click for more information on ${ title }`} onClick={ () => this.setState( prevState => ({ [title]: !prevState[title] }))} onBlur={ () => this.setState({ [title]: false })}>
+                <InfoIcon src={ infoIcon } alt="info"/>
+              </InfoButton>
+            }
+          </RowHeader>
         </Th>
         { stocks.length ?
           stocks.map( s =>
@@ -703,7 +748,7 @@ class Index extends Component {
             <ChartContainer>
               <DateRangeContainer>{ this.renderChartOptions() }</DateRangeContainer>
               <ChartLegend>{ this.renderLegend() }</ChartLegend>
-              <Line ref="chart" data={ chartData } options={ chartOptions } redraw={ redraw }/>
+              <Line ref="chart" aria-label="Stock comparison chart" role="img" data={ chartData } options={ chartOptions } redraw={ redraw }/>
             </ChartContainer>
           }
         </InnerContainer>

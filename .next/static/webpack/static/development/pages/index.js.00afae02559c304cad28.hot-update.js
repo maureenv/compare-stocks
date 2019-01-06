@@ -21,6 +21,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pageLayout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/pageLayout */ "./components/pageLayout.js");
 /* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var _static_info_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../static/info.svg */ "./static/info.svg");
+/* harmony import */ var _static_info_svg__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_static_info_svg__WEBPACK_IMPORTED_MODULE_8__);
 
 var _jsxFileName = "/Users/maureenvogel/webprojects/stocks/pages/index.js";
 
@@ -71,6 +73,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var url = 'https://www.gurufocus.com/term/peg/AAPL/PEG-Ratio';
 var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+
 
  // https://codepen.io/anon/pen/gQBGdR FIXED HEADER
 // https://github.com/jerairrest/react-chartjs-2/issues/81 create custom legend?
@@ -125,37 +128,41 @@ var ChartContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].d
   displayName: "ChartContainer",
   componentId: "sc-1cvwks4-0"
 })(["height:400px;width:100%;margin-top:50px;padding-bottom:100px;padding-right:20px;box-sizing:border-box;"]);
+var InfoIcon = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].img.withConfig({
+  displayName: "InfoIcon",
+  componentId: "sc-1cvwks4-1"
+})(["width:15px;"]);
 var Table = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].table.withConfig({
   displayName: "Table",
-  componentId: "sc-1cvwks4-1"
+  componentId: "sc-1cvwks4-2"
 })(["position:relative;"]);
 var Tbody = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].tbody.withConfig({
   displayName: "Tbody",
-  componentId: "sc-1cvwks4-2"
+  componentId: "sc-1cvwks4-3"
 })(["border-bottom:1px solid gray;"]);
 var OuterContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "OuterContainer",
-  componentId: "sc-1cvwks4-3"
+  componentId: "sc-1cvwks4-4"
 })(["background:#f5f5f5;height:100%;border-radius:4px;display:flex;align-items:center;justify-content:center;margin:40px;"]);
 var InnerContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "InnerContainer",
-  componentId: "sc-1cvwks4-4"
+  componentId: "sc-1cvwks4-5"
 })(["padding:20px;width:100%;max-width:1000px;position:relative;padding-right:0;"]);
 var TitleBanner = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "TitleBanner",
-  componentId: "sc-1cvwks4-5"
+  componentId: "sc-1cvwks4-6"
 })(["width:102%;height:50px;border-bottom:1px solid #ffc190;background:#f74b31;background:-moz-linear-gradient(left,#f74b31 0%,#ff6e00 100%);background:-webkit-linear-gradient(left,#f74b31 0%,#ff6e00 100%);background:linear-gradient(to right,#f74b31 0%,#ff6e00 100%);filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#f74b31',endColorstr='#ff6e00',GradientType=1 );position:absolute;left:-52%;transform:translate(50%);-webkit-box-shadow:0px 2px 11px 0 rgba(0,0,0,0.26);-moz-box-shadow:0px 2px 11px 0 rgba(0,0,0,0.26);box-shadow:0px 2px 11px 0 rgba(0,0,0,0.26);&:after{content:\"\";width:0;bottom:-10px;position:absolute;height:0;border-style:solid;border-width:0 9px 10px 0;border-color:transparent #770000 transparent transparent;}&:before{content:\"\";width:0;bottom:-10px;position:absolute;height:0;right:0;border-style:solid;border-width:10px 9px 0 0;border-color:#770000 transparent transparent transparent;}"]);
 var BannerButton = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button.withConfig({
   displayName: "BannerButton",
-  componentId: "sc-1cvwks4-6"
-})(["appearance:none;border:none;padding:5px 10px;border-radius:4px;text-transform:uppercase;font-weight:700;cursor:pointer;letter-spacing:1px;border-bottom:2px solid #770000;"]);
+  componentId: "sc-1cvwks4-7"
+})(["appearance:none;border:none;padding:5px 10px;border-radius:4px;text-transform:uppercase;font-weight:700;cursor:pointer;letter-spacing:1px;border-bottom:2px solid #770000;background:#fff;"]);
 var Tr = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].tr.withConfig({
   displayName: "Tr",
-  componentId: "sc-1cvwks4-7"
+  componentId: "sc-1cvwks4-8"
 })(["font-family:'Roboto',sans-serif;text-align:left;border-bottom:1px solid #d6d6d6;&:first-child{border-bottom:0;}"]);
 var Th = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].th.withConfig({
   displayName: "Th",
-  componentId: "sc-1cvwks4-8"
+  componentId: "sc-1cvwks4-9"
 })(["text-align:", ";padding:10px 20px;font-size:", ";color:", ";font-weight:", ";padding-top:", ";padding-bottom:", ";"], function (props) {
   return props.left ? 'left' : 'right';
 }, function (props) {
@@ -171,35 +178,39 @@ var Th = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].th.withConfig
 });
 var SelectStyles = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "SelectStyles",
-  componentId: "sc-1cvwks4-9"
+  componentId: "sc-1cvwks4-10"
 })([".Select-control{width:200px;}"]);
+var RowHeader = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
+  displayName: "RowHeader",
+  componentId: "sc-1cvwks4-11"
+})(["display:flex;align-items:center;position:relative;.information-box{position:absolute;background:#fff;line-height:1.4;z-index:1;padding:15px;border-radius:4px;width:200px;right:-210px;-webkit-box-shadow:0px 2px 11px 0 rgba(0,0,0,0.26);-moz-box-shadow:0px 2px 11px 0 rgba(0,0,0,0.26);box-shadow:0px 2px 11px 0 rgba(0,0,0,0.26);}"]);
 var Bullet = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "Bullet",
-  componentId: "sc-1cvwks4-10"
+  componentId: "sc-1cvwks4-12"
 })(["width:20px;height:8px;border-radius:10px;margin-right:8px;background-color:", ";"], function (props) {
   return props.color;
 });
 var LegendName = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].p.withConfig({
   displayName: "LegendName",
-  componentId: "sc-1cvwks4-11"
+  componentId: "sc-1cvwks4-13"
 })(["font-size:13px;font-family:'Roboto',sans-serif;"]);
 var LegendItemContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "LegendItemContainer",
-  componentId: "sc-1cvwks4-12"
+  componentId: "sc-1cvwks4-14"
 })(["display:flex;align-items:center;margin:0 20px;cursor:pointer;opacity:", ";"], function (props) {
   return props.opacity;
 });
 var ChartLegend = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "ChartLegend",
-  componentId: "sc-1cvwks4-13"
+  componentId: "sc-1cvwks4-15"
 })(["display:flex;justify-content:center;"]);
 var DateRangeContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "DateRangeContainer",
-  componentId: "sc-1cvwks4-14"
+  componentId: "sc-1cvwks4-16"
 })(["display:flex;justify-content:center;margin-bottom:20px;"]);
 var DateRangeSelector = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "DateRangeSelector",
-  componentId: "sc-1cvwks4-15"
+  componentId: "sc-1cvwks4-17"
 })([".input{position:relative;z-index:-9999;}.input:checked + label{background:", ";}.label{background:", ";color:#fff;padding:5px;font-family:'Roboto',sans-serif;cursor:pointer;font-size:13px;border-radius:4px;width:30px;text-align:center;display:inline-block;}"], function (props) {
   return props.theme.darkblue;
 }, function (props) {
@@ -207,14 +218,18 @@ var DateRangeSelector = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"
 });
 var Dropdown = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "Dropdown",
-  componentId: "sc-1cvwks4-16"
+  componentId: "sc-1cvwks4-18"
 })(["position:absolute;background:#fff;width:230px;padding:15px 0;border-radius:4px;.match{transition:all 0.2s ease-in-out;font-size:13px;padding:10px 15px;border-bottom:1px solid #d6d6d6;display:flex;justify-content:space-between;&:last-child{border-bottom:0;}&:hover{background:#d6d6d6;cursor:pointer;}}.symbol{font-weight:500;}.company-name{max-width:150px;text-align:right;line-height:1.3;color:#767676;}"]);
 var DropdownContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "DropdownContainer",
-  componentId: "sc-1cvwks4-17"
+  componentId: "sc-1cvwks4-19"
 })(["position:relative;.input{font-size:15px;padding:5px;border:none;background:none;border-bottom:", ";color:#fff;font-weight:700;text-align:right;width:100px;transition:all 0.2s ease-in-out;::-webkit-input-placeholder{color:#fff;font-weight:300;}::-moz-placeholder{color:#fff;font-weight:300;}:-ms-input-placeholder{color:#fff;font-weight:300;}:-moz-placeholder{color:#fff;font-weight:300;}}"], function (props) {
   return props.hasValue || '1px solid #fff';
 });
+var InfoButton = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button.withConfig({
+  displayName: "InfoButton",
+  componentId: "sc-1cvwks4-20"
+})(["position:relative;border:none;background:none;height:17px;cursor:pointer;"]);
 
 var Index =
 /*#__PURE__*/
@@ -535,7 +550,7 @@ function (_Component) {
           key: i,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 486
+            lineNumber: 520
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DropdownContainer, {
@@ -548,7 +563,7 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 487
+            lineNumber: 521
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
@@ -561,14 +576,14 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 488
+            lineNumber: 522
           },
           __self: this
         }), _this.state["matches".concat(i)] && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Dropdown, {
           id: "dropdown",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 490
+            lineNumber: 524
           },
           __self: this
         }, _this.state["matches".concat(i)].map(function (m) {
@@ -580,21 +595,21 @@ function (_Component) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 492
+              lineNumber: 526
             },
             __self: this
           }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
             className: "symbol",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 493
+              lineNumber: 527
             },
             __self: this
           }, m['1. symbol']), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
             className: "company-name",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 494
+              lineNumber: 528
             },
             __self: this
           }, m['2. name']));
@@ -625,20 +640,20 @@ function (_Component) {
           opacity: _this.state["line".concat(i)] ? 1 : 0.3,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 514
+            lineNumber: 548
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Bullet, {
           color: chartColors[i],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 515
+            lineNumber: 549
           },
           __self: this
         }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(LegendName, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 516
+            lineNumber: 550
           },
           __self: this
         }, s.company.companyName));
@@ -671,7 +686,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 546
+                  lineNumber: 580
                 },
                 __self: this
               }, _this.calculatePayoutRatio(s));
@@ -684,7 +699,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 551
+                  lineNumber: 585
                 },
                 __self: this
               }, _this.calculateDebtToEquity(s));
@@ -697,7 +712,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 556
+                  lineNumber: 590
                 },
                 __self: this
               }, _this.calculateAssetTurnover(s));
@@ -712,7 +727,7 @@ function (_Component) {
           colSpan: "4",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 564
+            lineNumber: 598
           },
           __self: this
         });
@@ -724,21 +739,21 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 572
+          lineNumber: 606
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 573
+          lineNumber: 607
         },
         __self: this
       }, title), _this.getCalculatedValues(functionName), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 575
+          lineNumber: 609
         },
         __self: this
       }));
@@ -751,7 +766,7 @@ function (_Component) {
           key: o,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 583
+            lineNumber: 617
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
@@ -766,7 +781,7 @@ function (_Component) {
           checked: o === _this.state.chartRange,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 584
+            lineNumber: 618
           },
           __self: this
         }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
@@ -774,7 +789,7 @@ function (_Component) {
           htmlFor: o,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 585
+            lineNumber: 619
           },
           __self: this
         }, o));
@@ -783,45 +798,73 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "renderTableRow", function (title, category, subcategory, isDollar, isPercent) {
       var stocks = _this.state.stocks;
-      var info = descriptions.filter(function (d) {
+      var hasInfo = descriptions.filter(function (d) {
         if (Object.keys(d)[0] === subcategory) {
           return d;
-        } else {
-          return null;
         }
       });
-      console.log(info.length > 0 && info[0][subcategory], 'the info');
+      var info = hasInfo.length > 0 && hasInfo[0][subcategory];
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 604
+          lineNumber: 635
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 605
+          lineNumber: 636
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(RowHeader, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 605
+          lineNumber: 637
         },
         __self: this
-      }, title, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, _this.state[title] && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "information-box",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 605
+          lineNumber: 639
         },
         __self: this
-      }))), stocks.length ? stocks.map(function (s) {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 640
+        },
+        __self: this
+      }, info)), title, info && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(InfoButton, {
+        "aria-label": "Click for more information on ".concat(title),
+        onClick: function onClick() {
+          return _this.setState(function (prevState) {
+            return _defineProperty({}, title, !prevState[title]);
+          });
+        },
+        onBlur: function onBlur() {
+          return _this.setState(_defineProperty({}, title, false));
+        },
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 645
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(InfoIcon, {
+        src: _static_info_svg__WEBPACK_IMPORTED_MODULE_8___default.a,
+        alt: "info",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 646
+        },
+        __self: this
+      })))), stocks.length ? stocks.map(function (s) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 608
+            lineNumber: 653
           },
           __self: this
         }, isDollar && s[category][subcategory] !== null && '$', _this.getValue(s[category][subcategory]), isPercent && s[category][subcategory] !== null && '%');
@@ -829,14 +872,14 @@ function (_Component) {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 614
+          lineNumber: 659
         },
         __self: this
       }), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 616
+          lineNumber: 661
         },
         __self: this
       }));
@@ -883,43 +926,43 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_pageLayout__WEBPACK_IMPORTED_MODULE_5__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 649
+          lineNumber: 694
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OuterContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 650
+          lineNumber: 695
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(InnerContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 651
+          lineNumber: 696
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TitleBanner, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 652
+          lineNumber: 697
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Table, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 653
+          lineNumber: 698
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 654
+          lineNumber: 699
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 655
+          lineNumber: 700
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
@@ -927,13 +970,13 @@ function (_Component) {
         bannerTitle: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 656
+          lineNumber: 701
         },
         __self: this
       }, " Stock Symbol "), this.renderInputFields(), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 658
+          lineNumber: 703
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(BannerButton, {
@@ -942,155 +985,157 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 658
+          lineNumber: 703
         },
         __self: this
       }, " Go "))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 660
+          lineNumber: 705
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 661
+          lineNumber: 706
         },
         __self: this
       }, " PEG "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "3",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 662
+          lineNumber: 707
         },
         __self: this
       })), this.renderTableRow('Name', 'company', 'companyName', false, false), this.renderTableRow('Sector', 'company', 'sector', false, false), this.renderTableRow('Industry', 'company', 'industry', false, false), this.renderTableRow('Latest Price', 'quote', 'latestPrice', true, false), this.renderTableRow('Price to Earning (P/E)', 'quote', 'peRatio', false, true), this.renderTableRow('Price to Sales (P/S)', 'stats', 'priceToSales', false, true), this.renderTableRow('Price to Book (P/B)', 'stats', 'priceToBook', false, true), this.renderTableRow('Dividend Yield', 'stats', 'dividendYield', false, true), this.renderTableRow('Dividend Rate', 'stats', 'dividendRate', true, false), this.renderCalculatedRow('Dividend Payout Ratio', 'calculatePayoutRatio'), this.renderTableRow('Return On Assets', 'stats', 'returnOnAssets', false, true), this.renderTableRow('Return On Equity', 'stats', 'returnOnEquity', false, true), this.renderTableRow('Profit Margin', 'stats', 'profitMargin', false, true), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 678
+          lineNumber: 723
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 679
+          lineNumber: 724
         },
         __self: this
       }, " Current Ratio "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 680
+          lineNumber: 725
         },
         __self: this
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 682
+          lineNumber: 727
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 683
+          lineNumber: 728
         },
         __self: this
       }, " Quick Ratio "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 684
+          lineNumber: 729
         },
         __self: this
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 686
+          lineNumber: 731
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 687
+          lineNumber: 732
         },
         __self: this
       }, " Debt To Equity "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 688
+          lineNumber: 733
         },
         __self: this
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 690
+          lineNumber: 735
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 691
+          lineNumber: 736
         },
         __self: this
       }, " Interest Coverage "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 692
+          lineNumber: 737
         },
         __self: this
       })), this.renderCalculatedRow('Debt to Equity', 'calculateDebtToEquity'), this.renderCalculatedRow('Asset Turnover (Current Quarter)', 'calculateAssetTurnover'), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 696
+          lineNumber: 741
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 697
+          lineNumber: 742
         },
         __self: this
       }, " Inventory Turnover "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 698
+          lineNumber: 743
         },
         __self: this
       })))), stocks.length && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 703
+          lineNumber: 748
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DateRangeContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 704
+          lineNumber: 749
         },
         __self: this
       }, this.renderChartOptions()), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartLegend, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 705
+          lineNumber: 750
         },
         __self: this
       }, this.renderLegend()), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__["Line"], {
         ref: "chart",
+        "aria-label": "Stock comparison chart",
+        role: "img",
         data: chartData,
         options: chartOptions,
         redraw: redraw,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 706
+          lineNumber: 751
         },
         __self: this
       })))));
@@ -1124,4 +1169,4 @@ function (_Component) {
 /***/ })
 
 })
-//# sourceMappingURL=index.js.be68db1d2a25c3b9f2ec.hot-update.js.map
+//# sourceMappingURL=index.js.00afae02559c304cad28.hot-update.js.map
