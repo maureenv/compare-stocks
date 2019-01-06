@@ -211,7 +211,7 @@ var DateRangeContainer = styled_components__WEBPACK_IMPORTED_MODULE_2__["default
 var DateRangeSelector = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div.withConfig({
   displayName: "DateRangeSelector",
   componentId: "sc-1cvwks4-17"
-})([".input{position:relative;z-index:-9999;}.input:checked + label{background:", ";}.label{background:", ";color:#fff;padding:5px;font-family:'Roboto',sans-serif;cursor:pointer;font-size:13px;border-radius:4px;width:30px;text-align:center;display:inline-block;}"], function (props) {
+})([".input{opacity:0;}.input:checked + label{background:", ";}.label{background:", ";color:#fff;padding:5px;font-family:'Roboto',sans-serif;cursor:pointer;font-size:13px;border-radius:4px;width:30px;text-align:center;display:inline-block;}label:focus{outline:rgb(59,153,252) auto 5px;}"], function (props) {
   return props.theme.darkblue;
 }, function (props) {
   return props.theme.lightgray;
@@ -550,7 +550,7 @@ function (_Component) {
           key: i,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 520
+            lineNumber: 522
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DropdownContainer, {
@@ -563,7 +563,7 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 521
+            lineNumber: 523
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
@@ -576,14 +576,14 @@ function (_Component) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 522
+            lineNumber: 524
           },
           __self: this
         }), _this.state["matches".concat(i)] && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Dropdown, {
           id: "dropdown",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 524
+            lineNumber: 526
           },
           __self: this
         }, _this.state["matches".concat(i)].map(function (m) {
@@ -595,21 +595,21 @@ function (_Component) {
             },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 526
+              lineNumber: 528
             },
             __self: this
           }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
             className: "symbol",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 527
+              lineNumber: 529
             },
             __self: this
           }, m['1. symbol']), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
             className: "company-name",
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 528
+              lineNumber: 530
             },
             __self: this
           }, m['2. name']));
@@ -640,20 +640,20 @@ function (_Component) {
           opacity: _this.state["line".concat(i)] ? 1 : 0.3,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 548
+            lineNumber: 550
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Bullet, {
           color: chartColors[i],
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 549
+            lineNumber: 551
           },
           __self: this
         }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(LegendName, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 550
+            lineNumber: 552
           },
           __self: this
         }, s.company.companyName));
@@ -686,7 +686,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 580
+                  lineNumber: 582
                 },
                 __self: this
               }, _this.calculatePayoutRatio(s));
@@ -699,7 +699,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 585
+                  lineNumber: 587
                 },
                 __self: this
               }, _this.calculateDebtToEquity(s));
@@ -712,7 +712,7 @@ function (_Component) {
                 key: s.company.companyName,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 590
+                  lineNumber: 592
                 },
                 __self: this
               }, _this.calculateAssetTurnover(s));
@@ -727,7 +727,7 @@ function (_Component) {
           colSpan: "4",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 598
+            lineNumber: 600
           },
           __self: this
         });
@@ -739,21 +739,21 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 606
+          lineNumber: 608
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 607
+          lineNumber: 609
         },
         __self: this
       }, title), _this.getCalculatedValues(functionName), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 609
+          lineNumber: 611
         },
         __self: this
       }));
@@ -766,7 +766,7 @@ function (_Component) {
           key: o,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 617
+            lineNumber: 619
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
@@ -781,7 +781,7 @@ function (_Component) {
           checked: o === _this.state.chartRange,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 618
+            lineNumber: 620
           },
           __self: this
         }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
@@ -789,7 +789,7 @@ function (_Component) {
           htmlFor: o,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 619
+            lineNumber: 621
           },
           __self: this
         }, o));
@@ -807,33 +807,33 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 635
+          lineNumber: 637
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 636
+          lineNumber: 638
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(RowHeader, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 637
+          lineNumber: 639
         },
         __self: this
       }, _this.state[title] && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "information-box",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 639
+          lineNumber: 641
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 640
+          lineNumber: 642
         },
         __self: this
       }, info)), title, info && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(InfoButton, {
@@ -848,7 +848,7 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 645
+          lineNumber: 647
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(InfoIcon, {
@@ -856,7 +856,7 @@ function (_Component) {
         alt: "info",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 646
+          lineNumber: 648
         },
         __self: this
       })))), stocks.length ? stocks.map(function (s) {
@@ -864,7 +864,7 @@ function (_Component) {
           key: s.company.companyName,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 653
+            lineNumber: 655
           },
           __self: this
         }, isDollar && s[category][subcategory] !== null && '$', _this.getValue(s[category][subcategory]), isPercent && s[category][subcategory] !== null && '%');
@@ -872,14 +872,14 @@ function (_Component) {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 659
+          lineNumber: 661
         },
         __self: this
       }), stocks.length < 4 && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: 4 - stocks.length,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 661
+          lineNumber: 663
         },
         __self: this
       }));
@@ -926,43 +926,43 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_pageLayout__WEBPACK_IMPORTED_MODULE_5__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 694
+          lineNumber: 696
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OuterContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 695
+          lineNumber: 697
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(InnerContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 696
+          lineNumber: 698
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TitleBanner, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 697
+          lineNumber: 699
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Table, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 698
+          lineNumber: 700
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 699
+          lineNumber: 701
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 700
+          lineNumber: 702
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
@@ -970,13 +970,13 @@ function (_Component) {
         bannerTitle: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 701
+          lineNumber: 703
         },
         __self: this
       }, " Stock Symbol "), this.renderInputFields(), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 703
+          lineNumber: 705
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(BannerButton, {
@@ -985,145 +985,145 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 703
+          lineNumber: 705
         },
         __self: this
       }, " Go "))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 705
+          lineNumber: 707
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 706
+          lineNumber: 708
         },
         __self: this
       }, " PEG "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "3",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 707
+          lineNumber: 709
         },
         __self: this
       })), this.renderTableRow('Name', 'company', 'companyName', false, false), this.renderTableRow('Sector', 'company', 'sector', false, false), this.renderTableRow('Industry', 'company', 'industry', false, false), this.renderTableRow('Latest Price', 'quote', 'latestPrice', true, false), this.renderTableRow('Price to Earning (P/E)', 'quote', 'peRatio', false, true), this.renderTableRow('Price to Sales (P/S)', 'stats', 'priceToSales', false, true), this.renderTableRow('Price to Book (P/B)', 'stats', 'priceToBook', false, true), this.renderTableRow('Dividend Yield', 'stats', 'dividendYield', false, true), this.renderTableRow('Dividend Rate', 'stats', 'dividendRate', true, false), this.renderCalculatedRow('Dividend Payout Ratio', 'calculatePayoutRatio'), this.renderTableRow('Return On Assets', 'stats', 'returnOnAssets', false, true), this.renderTableRow('Return On Equity', 'stats', 'returnOnEquity', false, true), this.renderTableRow('Profit Margin', 'stats', 'profitMargin', false, true), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 723
+          lineNumber: 725
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 724
+          lineNumber: 726
         },
         __self: this
       }, " Current Ratio "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 725
+          lineNumber: 727
         },
         __self: this
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 727
+          lineNumber: 729
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 728
+          lineNumber: 730
         },
         __self: this
       }, " Quick Ratio "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 729
+          lineNumber: 731
         },
         __self: this
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 731
+          lineNumber: 733
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 732
+          lineNumber: 734
         },
         __self: this
       }, " Debt To Equity "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 733
+          lineNumber: 735
         },
         __self: this
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 735
+          lineNumber: 737
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 736
+          lineNumber: 738
         },
         __self: this
       }, " Interest Coverage "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 737
+          lineNumber: 739
         },
         __self: this
       })), this.renderCalculatedRow('Debt to Equity', 'calculateDebtToEquity'), this.renderCalculatedRow('Asset Turnover (Current Quarter)', 'calculateAssetTurnover'), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Tr, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 741
+          lineNumber: 743
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         left: true,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 742
+          lineNumber: 744
         },
         __self: this
       }, " Inventory Turnover "), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Th, {
         colSpan: "4",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 743
+          lineNumber: 745
         },
         __self: this
       })))), stocks.length && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 748
+          lineNumber: 750
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DateRangeContainer, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 749
+          lineNumber: 751
         },
         __self: this
       }, this.renderChartOptions()), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ChartLegend, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 750
+          lineNumber: 752
         },
         __self: this
       }, this.renderLegend()), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_6__["Line"], {
@@ -1135,7 +1135,7 @@ function (_Component) {
         redraw: redraw,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 751
+          lineNumber: 753
         },
         __self: this
       })))));
@@ -1169,4 +1169,4 @@ function (_Component) {
 /***/ })
 
 })
-//# sourceMappingURL=index.js.00afae02559c304cad28.hot-update.js.map
+//# sourceMappingURL=index.js.21ee29670d7003fa0edd.hot-update.js.map

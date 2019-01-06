@@ -229,8 +229,7 @@ const DateRangeContainer = styled.div`
 
 const DateRangeSelector = styled.div`
   .input {
-    position: relative;
-    z-index: -9999;
+    opacity: 0;
   }
   .input:checked + label {
     background: ${ props => props.theme.darkblue };
@@ -246,6 +245,9 @@ const DateRangeSelector = styled.div`
     width: 30px;
     text-align: center;
     display: inline-block;
+  }
+  .input:focus + .label {
+    outline: rgb(59, 153, 252) auto 5px;
   }
 `
 
